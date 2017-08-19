@@ -223,14 +223,6 @@ if image_alpha = 0 {
             <kind>1</kind>
             <string>///Fish AI
 
-//Smooth turning
-if image_angle != dir {
-    image_angle += sin(degtorad(dir - image_angle)) * 15
-    direction = image_angle    
-}else{
-    direction = dir
-}
-
 //Getting Caught
 if instance_exists(obj_bobber) &amp;&amp; obj_bobber.hooked == false{
     if place_meeting(x,y,obj_bobber){
@@ -258,27 +250,8 @@ if distance_to_object(obj_player)&lt;=range &amp;&amp; obj_player.speed != 0 &am
     var moddir = point_direction(obj_player.x,obj_player.y,x,y);
     dir = lerp(dir, moddir, 0.6);
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Island avoid
+
+///Island avoid
 if distance_to_object(obj_sand) &lt;= 16 || distance_to_object(obj_grass) &lt;= 16{
     var island = instance_nearest(x,y,obj_sand);
     var dirSand = point_direction(island.x,island.y,x,y);
@@ -288,9 +261,8 @@ if distance_to_object(obj_sand) &lt;= 16 || distance_to_object(obj_grass) &lt;= 
     spd = 2;
 }
 
-if(spd != speed || dir != direction){
-    motion_set(dir,spd);
-}
+update_motion();
+smooth_rotate(15);
 </string>
           </argument>
         </arguments>
