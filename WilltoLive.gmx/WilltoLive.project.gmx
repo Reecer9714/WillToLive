@@ -139,6 +139,8 @@
     <script>scripts\arrayEqual.gml</script>
     <script>scripts\createArray.gml</script>
     <script>scripts\instance_random.gml</script>
+    <script>scripts\smooth_rotate.gml</script>
+    <script>scripts\update_motion.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fn_castaway</font>

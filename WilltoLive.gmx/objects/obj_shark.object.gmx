@@ -94,7 +94,7 @@ alarm[3]=60
             <string>///Speed Change
 
 spd = choose(0.1,2,3)
-motion_set(dir,spd)
+//motion_set(dir,spd)
 alarm[2]=30+irandom(30)
 </string>
           </argument>
@@ -121,7 +121,7 @@ alarm[2]=30+irandom(30)
             <string>///Direction Change
 
 dir = irandom(359)
-motion_set(dir,spd)
+//motion_set(dir,spd)
 alarm[1]=30+irandom(20)
 </string>
           </argument>
@@ -212,8 +212,6 @@ if hunger &gt; 15 {
         }
     }
 }
-
-
 </string>
           </argument>
         </arguments>
@@ -236,13 +234,16 @@ if hunger &gt; 15 {
             <kind>1</kind>
             <string>///Island avoid
 
-if distance_to_object(obj_sand) &lt;= 48 || distance_to_object(obj_grass) &lt;= 48{
+if distance_to_object(obj_sand) &lt;= 64 || distance_to_object(obj_grass) &lt;= 64{
     var island = instance_nearest(x,y,obj_sand);
     var dirSand = point_direction(island.x,island.y,x,y);
     var dirIsland = point_direction(room_width/2,room_width/2,x,y);
-    var moddir = lerp(dirSand, dirIsland, 0.3) mod 360;
-    dir = lerp(dir, moddir, 0.4);
+    var moddir = lerp(dirSand, dirIsland, 0.2);
+    dir = lerp(dir, moddir, 0.95);
     spd = 2;
+}
+
+if(spd != speed || dir != direction){
     motion_set(dir,spd);
 }
 </string>
@@ -251,33 +252,6 @@ if distance_to_object(obj_sand) &lt;= 48 || distance_to_object(obj_grass) &lt;= 
       </action>
     </event>
     <event eventtype="4" ename="obj_sand">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>image_alpha = 0
-/*
-speed = 0
-dir = point_direction(other.x,other.y,x,y,)
-spd = 2 
-motion_set(dir,spd)
-*/
-</string>
-          </argument>
-        </arguments>
-      </action>
       <action>
         <libid>1</libid>
         <id>113</id>
@@ -308,33 +282,6 @@ motion_set(dir,spd)
       </action>
     </event>
     <event eventtype="4" ename="obj_grass">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>image_alpha = 0
-/*
-speed = 0
-dir = point_direction(other.x,other.y,x,y,)
-spd = 2 
-motion_set(dir,spd)
-*/
-</string>
-          </argument>
-        </arguments>
-      </action>
       <action>
         <libid>1</libid>
         <id>113</id>

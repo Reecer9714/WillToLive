@@ -58,8 +58,8 @@ alarm[1]=10+irandom(20)
             <kind>1</kind>
             <string>///Speed Change
 if !colliding{
-spd = choose(0,0.5,1)
-motion_set(dir,spd)
+    spd = choose(0,0.5,1)
+    //motion_set(dir,spd)
 }
 alarm[1]=10+irandom(30)
 </string>
@@ -86,9 +86,9 @@ alarm[1]=10+irandom(30)
             <kind>1</kind>
             <string>///Direction Change
 if !colliding {
-dir = irandom(359)
-//image_angle = dir
-motion_set(dir,spd)
+    dir = irandom(359);
+    //image_angle = dir
+    //motion_set(dir,spd)
 }
 alarm[0]=15+irandom(20)
 </string>
@@ -126,11 +126,16 @@ if image_angle != dir {
 if !place_meeting(x,y,obj_sand){
     colliding = true
     sand = instance_nearest(x,y,obj_sand)
-    dir = point_direction(x,y,sand.x,sand.y);
+    var moddir = point_direction(x,y,sand.x,sand.y);
+    dir = lerp(dir, moddir, 0.6);
     spd = 0.5;
-    motion_set(dir,spd)
+    //motion_set(dir,spd)
 }else{
     colliding = false
+}
+
+if(spd != speed || dir != direction){
+    motion_set(dir,spd);
 }
 </string>
           </argument>

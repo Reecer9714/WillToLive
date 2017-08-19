@@ -229,87 +229,61 @@ if height &gt; 0{
           <argument>
             <kind>1</kind>
             <string>///Bird AI
-//
-
-if image_angle != dir {
-    image_angle += sin(degtorad(dir - image_angle)) * 15
-    direction = image_angle
-}else{
-    direction = dir
-}
 
 if(place_meeting(x,y,obj_water)){
     targetHeight = 1;
 }
-if(height &lt; 0.1 &amp;&amp; distance_to_object(obj_boulder) &lt; 2){
+
+if(height &lt; 0.1 &amp;&amp; distance_to_object(obj_boulder) &lt; 4){
     var near = instance_nearest(x,y,obj_boulder)
-    dir = point_direction(near.x,near.y,x,y)
-    motion_set(dir,spd);
+    var moddir = point_direction(near.x,near.y,x,y);
+    dir = lerp(dir, moddir, 0.6);
+}
+
+//Scared
+if distance_to_object(obj_player) &lt;= range &amp;&amp; height &lt; 1{
+    scared = 10;
+    alarm[5] = room_speed
+    var moddir = point_direction(obj_player.x,obj_player.y,x,y);
+    dir = lerp(dir, moddir, 0.6);
+    speed = 1.5
+    targetHeight = 1
+}
+
+//Eating
+if (hunger &gt;= 15 &amp;&amp; scared &lt;= 0){
+    eating = true
+    if(position_meeting(x,y,obj_water)){
+        land = instance_nearest(x,y,obj_grass)
+        move_towards_object(land,1)
+    }else if (collision_circle(x,y,range*5,obj_berry,false,true)){
+        berry = instance_nearest(x,y,obj_berry)
+        move_towards_object(berry,1)
+        targetHeight = 0;
+        if place_meeting(x,y,berry){
+            hunger -= 15;
+            eating = false;
+            spd = 0;
+            with(berry){
+                instance_destroy()
+            }
+        }
+    }   
 }
 
 if height &gt; 0{
     image_index = 0
     depth = -6
     if(spd &lt; 1) spd = 1;
-    motion_set(dir,spd)
+    //motion_set(dir,spd)
 }else{
     image_index = 1
     depth = -1
 }
 
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Eating and Scared
-if distance_to_object(obj_player) &lt;= range &amp;&amp; height &lt; 1{
-    scared = 10;
-    alarm[5] = room_speed
-    dir = point_direction(obj_player.x,obj_player.y,x,y)
-    speed = 1.5
-    targetHeight = 1
-}
-
-if (hunger &gt;= 15 &amp;&amp; scared &lt;= 0){
-        eating = true
-        if collision_circle(x,y,range*5,obj_berry,false,true){
-            berry = instance_nearest(x,y,obj_berry)
-            move_towards_object(berry,1)
-            targetHeight = 0;
-            if place_meeting(x,y,berry){
-                hunger -= 15
-                eating = false
-                spd = 0;
-                motion_set(dir,spd)
-                with(berry){
-                    instance_destroy()
-                }
-            }
-        }
-        else if(position_meeting(x,y,obj_water)){
-            land = instance_nearest(x,y,obj_grass)
-            move_towards_object(land,1)
-            //targetHeight = 0;
-        }   
-}
-
+update_motion();
+smooth_rotate(15);
+//This should smooth the motion
 speed *= global.delta
 </string>
           </argument>
@@ -332,8 +306,6 @@ speed *= global.delta
           <argument>
             <kind>1</kind>
             <string>///Get to target Height
-motion_set(dir,spd);
-
 if(height &lt; targetHeight){
     height += 0.05
 }
