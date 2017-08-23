@@ -6,7 +6,7 @@ var h = global.mapHeight;
 
 for(var xx=0; xx<w; xx++){
     for(var yy=0; yy<h; yy++){
-        var obj = instance_create(xx*size,yy*size,obj_ground);
+        scr_place_terrain(xx*size,yy*size);
         global.tileCount++;
     }
 }

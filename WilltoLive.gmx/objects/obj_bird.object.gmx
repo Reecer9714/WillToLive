@@ -230,14 +230,9 @@ if height &gt; 0{
             <kind>1</kind>
             <string>///Bird AI
 
+//Swim over water
 if(place_meeting(x,y,obj_water)){
     targetHeight = 1;
-}
-
-if(height &lt; 0.1 &amp;&amp; distance_to_object(obj_boulder) &lt; 4){
-    var near = instance_nearest(x,y,obj_boulder)
-    var moddir = point_direction(near.x,near.y,x,y);
-    dir = lerp(dir, moddir, 0.6);
 }
 
 //Scared
@@ -271,20 +266,26 @@ if (hunger &gt;= 15 &amp;&amp; scared &lt;= 0){
     }   
 }
 
+//Dodge Boulder
+if(height &lt; 0.1 &amp;&amp; distance_to_object(obj_boulder) &lt; 4){
+    var near = instance_nearest(x,y,obj_boulder)
+    var moddir = point_direction(near.x,near.y,x,y);
+    dir = lerp(dir, moddir, 0.5);
+}
+
 if height &gt; 0{
-    image_index = 0
-    depth = -6
+    image_index = 0;
+    depth = -6;
     if(spd &lt; 1) spd = 1;
-    //motion_set(dir,spd)
 }else{
-    image_index = 1
-    depth = -1
+    image_index = 1;
+    depth = -1;
 }
 
 update_motion();
 smooth_rotate(15);
 //This should smooth the motion
-speed *= global.delta
+speed *= global.delta;
 </string>
           </argument>
         </arguments>
@@ -363,8 +364,6 @@ image_yscale = image_xscale
             <string>draw_self()
 
 if global.debug {
-    draw_text(x+5,y+5,string(scared))
-    draw_text(x+5,y+20,string(hunger))
     draw_circle(x,y,range,true)
 }
 </string>

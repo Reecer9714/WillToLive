@@ -27,6 +27,10 @@
             <kind>1</kind>
             <string>hp = 100;
 spawned = 0;
+//age = 10;
+
+x += irandom_range(-6,6);
+y += irandom_range(-6,6);
 
 image_speed = 0
 image_index = choose(0,1,2,3)
@@ -55,14 +59,14 @@ alarm[0] = room_speed * irandom_range(10,500)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>    wood = choose(2,3,4)
-    leaves = choose(1,2)
-    repeat(wood){
-        instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_wood)
-    }
-    repeat(leaves){
-        instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_leaves)
-    }
+            <string>wood = choose(2,3,4)
+leaves = choose(1,2)
+repeat(wood){
+    instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_wood)
+}
+repeat(leaves){
+    instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_leaves)
+}
 </string>
           </argument>
         </arguments>

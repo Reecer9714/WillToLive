@@ -18,9 +18,9 @@ show_debug_message("Initial values set in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 
 //Smooth Scale map
-repeat(1){
+//repeat(1){
     scaleMap = scr_smooth(scaleMap, sclWidth, sclHeight)
-}
+//}
 show_debug_message("Scale map smoothed in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 

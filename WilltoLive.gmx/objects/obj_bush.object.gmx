@@ -86,7 +86,7 @@ alarm[0] = room_speed * irandom_range(10,300)
           <argument>
             <kind>1</kind>
             <string>///Spawn Berry
-if instance_number(obj_berry) &lt; instance_number(obj_bush)*2 {
+if instance_number(obj_berry) &lt; instance_number(obj_bush) {
     instance_create(irandom_range(x-10,x+10),irandom_range(y-10,y+10),obj_berry)
 }
 alarm[0] = room_speed * irandom_range(60,90)

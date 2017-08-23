@@ -565,7 +565,7 @@ draw_set_colour(c_black)
 if global.debug = true{
     draw_text(view_xview[0],view_yview[0],"Time " + string(global.time))
     draw_text(view_xview[0],view_yview[0]+15,"Weather: " + global.weather)
-    draw_text(view_xview[0],view_yview[0]+30,"Fish: " + string(instance_number(obj_fish)))
+    draw_text(view_xview[0],view_yview[0]+30,"Bird: " + string(instance_number(obj_bird)))
     draw_text(view_xview[0],view_yview[0]+45,"Days: " + string(global.day))
     draw_text(view_xview[0]+view_wview[0]-128,view_yview[0]+view_hview[0]-15,"Debug Vision")
 }
