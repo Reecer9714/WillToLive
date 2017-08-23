@@ -121,6 +121,8 @@
       <script>scripts\scr_get_elevation.gml</script>
       <script>scripts\scr_island.gml</script>
       <script>scripts\scr_smooth.gml</script>
+      <script>scripts\scr_spawn_objects.gml</script>
+      <script>scripts\scr_place_terrain.gml</script>
     </scripts>
     <scripts name="PlayerInteract">
       <script>scripts\fishingRod.gml</script>
