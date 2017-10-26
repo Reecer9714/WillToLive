@@ -207,8 +207,8 @@ if hunger &gt; 15 {
 
 //Island Avoid
 if distance_to_object(obj_sand) &lt;= 64 || distance_to_object(obj_grass) &lt;= 64{
-    var island = instance_nearest(x,y,obj_sand);
-    var dirSand = point_direction(island.x,island.y,x,y);
+    var island = scr_tile_nearest(x,y,"sand",4);
+    var dirSand = point_direction(island[0],island[1],x,y);
     var dirIsland = point_direction(room_width/2,room_width/2,x,y);
     var moddir = lerp(dirSand, dirIsland, 0.2);
     dir = lerp(dir, moddir, 0.95);

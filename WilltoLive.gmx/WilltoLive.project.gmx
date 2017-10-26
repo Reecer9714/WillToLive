@@ -109,6 +109,7 @@
     <background>background\bk_gameover</background>
     <background>background\bk_controls</background>
     <background>background\bk_load</background>
+    <background>background\bk_terrain</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -123,6 +124,15 @@
       <script>scripts\scr_smooth.gml</script>
       <script>scripts\scr_spawn_objects.gml</script>
       <script>scripts\scr_place_terrain.gml</script>
+      <script>scripts\scr_add_tiles.gml</script>
+      <script>scripts\scr_get_tile.gml</script>
+      <script>scripts\scr_grass_create.gml</script>
+      <script>scripts\scr_sand_create.gml</script>
+      <script>scripts\scr_tile_random.gml</script>
+      <script>scripts\scr_tile_nearest.gml</script>
+      <script>scripts\scr_tile_rotation.gml</script>
+      <script>scripts\scr_tile_distance.gml</script>
+      <script>scripts\scr_tile_meeting.gml</script>
     </scripts>
     <scripts name="PlayerInteract">
       <script>scripts\fishingRod.gml</script>
@@ -143,6 +153,7 @@
     <script>scripts\instance_random.gml</script>
     <script>scripts\smooth_rotate.gml</script>
     <script>scripts\update_motion.gml</script>
+    <script>scripts\cameraFollow.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fn_castaway</font>

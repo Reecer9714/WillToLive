@@ -32,8 +32,8 @@ dec = false
 wait = true
 alarm[0] = global.dayTime
 
-surf = surface_create(room_width,room_height);
-surfScale = 1/8;
+surf = -1//surface_create(room_width,room_height);
+surfScale = 1/6;
 </string>
           </argument>
         </arguments>
@@ -166,11 +166,14 @@ if global.islandGenerated = true{
     draw_clear(c_black);
     with(obj_light){
         draw_set_blend_mode(bm_subtract)
-        draw_sprite_ext(spr_light,0,x*other.surfScale,y*other.surfScale,lightSize*other.surfScale,lightSize*other.surfScale,0,c_white,lightStrength)
+        draw_sprite_ext(spr_light,0,x,y,lightSize,lightSize,0,c_white,lightStrength)
+        //draw_sprite_ext(spr_light,0,x*other.surfScale,y*other.surfScale,lightSize*other.surfScale,lightSize*other.surfScale,0,c_white,lightStrength)
         draw_set_blend_mode(bm_normal)
     }
-    surface_reset_target()
-    draw_surface_ext(surf,0,0,1/surfScale,1/surfScale,0,c_white,global.time)
+    surface_reset_target();
+    draw_surface_part_ext(surf,view_xview[0],view_yview[0],view_wview[0],view_hview[0],
+            view_xview[0],view_yview[0],1,1,c_white,global.time);
+    //draw_surface_ext(surf,0,0,1/surfScale,1/surfScale,0,c_white,1)//global.time)
 }else{
     surf = surface_create(room_width,room_height);
 }

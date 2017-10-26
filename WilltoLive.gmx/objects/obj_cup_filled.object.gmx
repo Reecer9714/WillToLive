@@ -51,7 +51,7 @@ cook = 0
             <kind>1</kind>
             <string>event_inherited()
 
-if distance_to_object(obj_campfire)&lt;=5{
+if distance_to_object(obj_campfire)&lt;=16{
     cook++
 }
 

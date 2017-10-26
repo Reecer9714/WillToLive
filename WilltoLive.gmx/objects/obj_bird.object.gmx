@@ -184,12 +184,11 @@ alarm[1]=60
             <kind>1</kind>
             <string>///TakeOff or Land
 if !eating {
-    
     if irandom(5) == 0{
         if height &gt; 0{
-            land = instance_nearest(x,y,obj_grass)
-            move_towards_object(land, 1)
-            if place_meeting(x,y,land){
+            land = scr_tile_nearest(x,y,"grass",global.mapWidth/3)
+            dir = point_direction(x,y,land[0],land[1]);
+            if point_distance(x,y,land[0],land[1]) &lt; 32{
                 targetHeight = 0
                 motion_set(dir,0)
             }
@@ -231,7 +230,7 @@ if height &gt; 0{
             <string>///Bird AI
 
 //Swim over water
-if(place_meeting(x,y,obj_water)){
+if(scr_tile_meeting(x,y,"water")){
     targetHeight = 1;
 }
 
@@ -248,9 +247,11 @@ if distance_to_object(obj_player) &lt;= range &amp;&amp; height &lt; 1{
 //Eating
 if (hunger &gt;= 15 &amp;&amp; scared &lt;= 0){
     eating = true
-    if(position_meeting(x,y,obj_water)){
-        land = instance_nearest(x,y,obj_grass)
-        move_towards_object(land,1)
+    if(scr_tile_meeting(x,y,"water")){
+        land = scr_tile_nearest(x,y,"grass",global.mapWidth*global.tileSize)
+        var moddir = point_direction(x,y,land[0],land[1])
+        dir = lerp(dir, moddir, 0.6);
+        spd = 1.5
     }else if (collision_circle(x,y,range*5,obj_berry,false,true)){
         berry = instance_nearest(x,y,obj_berry)
         move_towards_object(berry,1)

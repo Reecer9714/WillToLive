@@ -29,6 +29,7 @@
 image_index = 0
 image_speed = 0
 hp = 150
+range = 20;
 
 fire = audio_play_sound_at(s_fire,x,y,0,20,25,2,true,1)
 campfire = part_emitter_create(global.ef_fire)
@@ -93,13 +94,13 @@ part_emitter_destroy(campfire, global.ef_fire)
             <string>///Fuel or burn nearby wood/coal
 if fuel &gt; 0{
     fuel--
-    if distance_to_object(obj_wood) &lt; 10 {
+    if distance_to_object(obj_wood) &lt; range {
         with(instance_nearest(x,y,obj_wood)){
             instance_destroy()
         }
         fuel += 30
     }
-    if distance_to_object(obj_coal) &lt; 10 {
+    if distance_to_object(obj_coal) &lt; range {
         with(instance_nearest(x,y,obj_coal)){
             instance_destroy()
         }
@@ -199,7 +200,7 @@ alarm[0] = 15
           <argument>
             <kind>1</kind>
             <string>draw_self()
-if(global.debug)draw_text(x,y,fuel)
+if(global.debug)draw_circle(x,y,range,true);
 </string>
           </argument>
         </arguments>

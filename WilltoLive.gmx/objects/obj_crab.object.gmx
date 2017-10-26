@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>colliding = false
+            <string>colliding = false;
 dir = irandom(359)
 spd = choose(0,0.5,1)
 
@@ -116,13 +116,15 @@ alarm[0]=15+irandom(20)
             <string>///Crab AI
 image_speed = spd
 
-if !place_meeting(x,y,obj_sand){
+if !scr_tile_meeting(x,y,"sand"){
     colliding = true
-    sand = instance_nearest(x,y,obj_sand)
-    var moddir = point_direction(x,y,sand.x,sand.y);
-    dir = lerp(dir, moddir, 0.6);
+    sand = scr_tile_nearest(x,y,"sand",6)
+    if(sand == -1){
+        show_debug_message("BREAK");
+    }
+    var moddir = point_direction(x,y,sand[0],sand[1]);
+    dir = lerp(dir, moddir, 0.8);
     spd = 0.5;
-    //motion_set(dir,spd)
 }else{
     colliding = false
 }

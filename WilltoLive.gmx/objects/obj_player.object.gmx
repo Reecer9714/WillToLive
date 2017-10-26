@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_index = 0
+            <string>///Init
+image_index = 0
 spritewalkspeed = 0.5
 image_speed = spritewalkspeed
 crafting = false
@@ -46,6 +47,32 @@ alarm[0] = room_speed * 30
 alarm[1] = room_speed * 30
 instance_create(0,0,obj_inventory)
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Unstuck from Rock
+if(position_meeting(x,y,obj_boulder)){
+    with(instance_position(x,y,obj_boulder)){
+        instance_destroy();
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -145,7 +172,7 @@ getInput()
           <argument>
             <kind>1</kind>
             <string>///Movement &amp;&amp; Rotation
-if position_meeting(x,y,obj_water){
+if scr_tile_meeting(x,y,"water"){
     swim = true
 }else{
     swim = false
@@ -245,7 +272,7 @@ direction = image_angle
 //yt = y - sin(degtorad(pointDir));
 //audio_listener_orientation(xt,yt,0, 0,0,1)
 audio_listener_position(x, y, 0);
-
+cameraFollow(view_current, self);
 </string>
           </argument>
         </arguments>
@@ -267,7 +294,6 @@ audio_listener_position(x, y, 0);
           <argument>
             <kind>1</kind>
             <string>///Crafting and Placing and Using
-
 if craft{
     if crafting = false{
         instance_create(mouse_x,mouse_y,obj_crafting)

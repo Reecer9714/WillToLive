@@ -9,7 +9,7 @@ var scaleMap;
 var sclWidth = 50;
 var sclHeight = 50;
 
-//initial random values
+///INITIAL RANDOM VALUES
 var timerStart = get_timer();
 for(i = sclWidth*sclHeight - 1; i > -1; i--){
     scaleMap[i] = random_range(0,1);//maybe eventually noise
@@ -17,14 +17,14 @@ for(i = sclWidth*sclHeight - 1; i > -1; i--){
 show_debug_message("Initial values set in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 
-//Smooth Scale map
+///SMOOTH
 //repeat(1){
     scaleMap = scr_smooth(scaleMap, sclWidth, sclHeight)
 //}
 show_debug_message("Scale map smoothed in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 
-//Scaled up to realmap
+///SCALE
 for(var xx=0; xx < width; xx++){
     for(var yy=0; yy < height; yy++){
         var sclX = floor(map(xx, 0, width, 0, sclWidth));
@@ -35,9 +35,9 @@ for(var xx=0; xx < width; xx++){
 show_debug_message("Map Scaled up in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 
-//Island Mask
+///ISLAND MASK
 elev = scr_island(elev, width, height);
-//Smoothing
+///SMOOTH
 repeat(2){
     elev = scr_smooth(elev, width, height);
 }
@@ -45,6 +45,7 @@ show_debug_message("Map Smoothed in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 
 /*
+///NORMALIZE
 //find max and min
 //this might need to happen to the scaledMap
 var minElev = 1000;
@@ -67,7 +68,19 @@ for(xx=0; xx<global.mapWidth; xx++){
 show_debug_message("Values normalized in " + string(get_timer() - timerStart));
 timerStart = get_timer();
 */
+
+
+/*
+for(var xx=0; xx < width; xx++){
+    for(var yy=0; yy < height; yy++){
+        global.elevation[xx + yy * width] = scr_get_elevation(xx*global.tileSize,yy*global.tileSize);
+    }
+}
+*/
+
+//Set local elevation to global scope
 global.elevation = elev;
-//Fill map with objects
-scr_fill();
+
+//Make Tile Layer
+scr_add_tiles(width,height);
 show_debug_message("Map Filled in " + string(get_timer() - timerStart));

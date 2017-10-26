@@ -60,7 +60,7 @@ draw_rectangle(xx+width/3,yy+height/3,xx+(width/3 * 2),yy+(height/3*2),false);
 draw_set_alpha(1)
 draw_set_font(fn_castaway)
 draw_set_color(c_white)
-draw_text((xx+width/2)-string_width("Pause")/2,(yy+height/2)-string_height("Pause")*2 + 5,"Pause");
+draw_text((xx+width/2)-string_width("PAUSE")/2,(yy+height/2)-string_height("PAUSE")*2 + 5,"PAUSE");
 draw_set_font(fn_defualt)
 draw_set_color(c_black)
 </string>

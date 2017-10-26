@@ -1,4 +1,9 @@
-var elev = global.elevation[(argument0/global.tileSize) + (argument1/global.tileSize) * global.mapWidth]
+if(argument0 < 0 || argument0 > global.mapWidth-1 || argument1 < 0 || argument1 > global.mapHeight-1){
+    show_debug_message("Out of Bounds ERROR: scr_get_elevation");
+    return 0;
+}
+
+var elev = global.elevation[argument0+argument1*global.mapWidth]
 
 //TODO: Nest this
 if elev < 0.3{

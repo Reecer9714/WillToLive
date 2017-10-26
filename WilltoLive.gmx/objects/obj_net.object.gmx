@@ -25,8 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hp = 100
+            <string>image_speed = 0;
+hp = 100
 caught = 0
+maxCaught = 4;
 range = 32*3
 </string>
           </argument>
@@ -73,11 +75,12 @@ range = 32*3
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if collision_circle(x,y,range,obj_fish,false,true){
+            <string>if collision_circle(x,y,range,obj_fish,false,true) &amp;&amp; caught &lt; maxCaught{
     with(instance_nearest(x,y,obj_fish)){
         instance_destroy()
     }
     caught++
+    image_index = caught;
 }
 
 if collision_point(mouse_x,mouse_y,obj_net,false,false){
@@ -86,35 +89,9 @@ if collision_point(mouse_x,mouse_y,obj_net,false,false){
             addItem(obj_raw_fish)
         }
         caught = 0
+        image_index = caught;
     }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="10">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Use
-repeat(caught){
-    addItem(obj_raw_fish)
-}
-caught = 0
 </string>
           </argument>
         </arguments>
