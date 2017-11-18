@@ -1,5 +1,5 @@
 //Needs to be reworked
-if use && global.inventory[obj_inventory.selected,0]==itemIndex.icup && distance_to_object(obj_water)<32{
+if use && global.inventory[obj_inventory.selected,0]==itemIndex.icup && scr_tile_meeting(x,y,"water"){
     global.inventory[obj_inventory.selected,0]=itemIndex.icupfilled
 }else
 if use && thirst > 10 &&(

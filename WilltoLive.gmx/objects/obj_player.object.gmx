@@ -69,9 +69,8 @@ instance_create(0,0,obj_inventory)
             <kind>1</kind>
             <string>///Unstuck from Rock
 if(position_meeting(x,y,obj_boulder)){
-    with(instance_position(x,y,obj_boulder)){
-        instance_destroy();
-    }
+    var rock = instance_position(x,y,obj_boulder);
+    instance_destroy(rock, false);
 }
 </string>
           </argument>
@@ -317,6 +316,7 @@ if drop &amp;&amp; global.inventory[obj_inventory.selected,0]&gt;=0 &amp;&amp; g
     }
 }
 
+//Open Survival guide
 if(!global.pause &amp;&amp; !global.guideOpen &amp;&amp; use &amp;&amp; global.inventory[obj_inventory.selected,0]==itemIndex.isurvivalbook){
     instance_create(x,y,obj_survivalguide);
 }

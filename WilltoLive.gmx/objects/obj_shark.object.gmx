@@ -29,11 +29,15 @@
 
 range = 320+irandom(64)
 dir = irandom(359)
-spd = choose(0.2,2,3)
+spd = choose(0.5,2,3)
 
 hunger = 0
 
 motion_set(dir,spd)
+
+//Tween
+targetAlpha = image_alpha;
+targetSize = image_xscale;
 
 //Going under
 alarm[0]=30+irandom(20)
@@ -93,7 +97,7 @@ alarm[3]=60
             <kind>1</kind>
             <string>///Speed Change
 
-spd = choose(0.1,2,3)
+spd = choose(0.5,2,3)
 //motion_set(dir,spd)
 alarm[2]=30+irandom(30)
 </string>
@@ -147,12 +151,14 @@ alarm[1]=30+irandom(20)
             <kind>1</kind>
             <string>///Appear/Disapear
 
-if image_alpha = 0 {
-    image_alpha = 1
-    alarm[0]=20+irandom(20)
+if image_alpha = 0 { 
+    image_alpha = 1;
+    spd = 1;
+    alarm[0]=70+irandom(30);
 }else{
-    image_alpha = 0
-    alarm[0]=70+irandom(20)
+    image_alpha = 0;
+    spd = 1;
+    alarm[0]=70+irandom(30);
 }
 
 </string>
@@ -178,6 +184,20 @@ if image_alpha = 0 {
           <argument>
             <kind>1</kind>
             <string>///Skark Ai
+
+//Island avoid
+if scr_tile_distance(x,y,"sand",256) &lt;= 96 || scr_tile_distance(x,y,"grass",256) &lt;= 96{
+    if scr_tile_meeting(x,y,"sand") || scr_tile_meeting(x,y,"grass"){
+        var island = scr_tile_position(x,y);
+    }else{
+        var island = scr_tile_nearest(x,y,"sand",16);
+    }
+    var dirSand = point_direction(island[0],island[1],x,y);
+    var dirIsland = point_direction(room_width/2,room_width/2,x,y);
+    var moddir = lerp(dirSand, dirIsland, 0.1);
+    dir = lerp(dir, moddir, 0.95);
+    spd = 2;
+}else
 
 //Find Food
 if hunger &gt; 15 {
@@ -205,81 +225,13 @@ if hunger &gt; 15 {
     }
 }
 
-//Island Avoid
-if distance_to_object(obj_sand) &lt;= 64 || distance_to_object(obj_grass) &lt;= 64{
-    var island = scr_tile_nearest(x,y,"sand",4);
-    var dirSand = point_direction(island[0],island[1],x,y);
-    var dirIsland = point_direction(room_width/2,room_width/2,x,y);
-    var moddir = lerp(dirSand, dirIsland, 0.2);
-    dir = lerp(dir, moddir, 0.95);
-    spd = 2;
-}
+
 
 update_motion();
 smooth_rotate(15);
 </string>
           </argument>
         </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_sand">
-      <action>
-        <libid>1</libid>
-        <id>113</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_reverse_xdir</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>114</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_reverse_ydir</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_grass">
-      <action>
-        <libid>1</libid>
-        <id>113</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_reverse_xdir</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>114</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_reverse_ydir</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
       </action>
     </event>
     <event eventtype="7" enumb="1">

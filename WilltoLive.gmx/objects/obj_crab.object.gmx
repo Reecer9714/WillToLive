@@ -119,14 +119,18 @@ image_speed = spd
 if !scr_tile_meeting(x,y,"sand"){
     colliding = true
     sand = scr_tile_nearest(x,y,"sand",6)
-    if(sand == -1){
-        show_debug_message("BREAK");
-    }
     var moddir = point_direction(x,y,sand[0],sand[1]);
     dir = lerp(dir, moddir, 0.8);
     spd = 0.5;
 }else{
     colliding = false
+}
+
+//Dodge Boulder
+if(distance_to_object(obj_boulder) &lt; 3){
+    var near = instance_nearest(x,y,obj_boulder)
+    var moddir = point_direction(near.x,near.y,x,y);
+    dir = lerp(dir, moddir, 0.5);
 }
 
 update_motion();

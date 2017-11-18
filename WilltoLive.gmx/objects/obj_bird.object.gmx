@@ -186,7 +186,7 @@ alarm[1]=60
 if !eating {
     if irandom(5) == 0{
         if height &gt; 0{
-            land = scr_tile_nearest(x,y,"grass",global.mapWidth/3)
+            land = scr_tile_nearest(x,y,"grass",global.mapWidth/2)
             dir = point_direction(x,y,land[0],land[1]);
             if point_distance(x,y,land[0],land[1]) &lt; 32{
                 targetHeight = 0
@@ -268,7 +268,7 @@ if (hunger &gt;= 15 &amp;&amp; scared &lt;= 0){
 }
 
 //Dodge Boulder
-if(height &lt; 0.1 &amp;&amp; distance_to_object(obj_boulder) &lt; 4){
+if(height &lt; 0.1 &amp;&amp; distance_to_object(obj_boulder) &lt; 3){
     var near = instance_nearest(x,y,obj_boulder)
     var moddir = point_direction(near.x,near.y,x,y);
     dir = lerp(dir, moddir, 0.5);

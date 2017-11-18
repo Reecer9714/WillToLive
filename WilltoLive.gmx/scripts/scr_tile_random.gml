@@ -16,7 +16,8 @@ r[1] = (yy * global.tileSize)+16;
 return r;
 
 #define scr_tile_random_water
-var index = irandom(ds_list_size(global.waterTiles)-1);
+var num = ds_list_size(global.waterTiles);
+var index = floor(random(1) * num);
 var loc = ds_list_find_value(global.waterTiles,index);
 
 var r;

@@ -21,9 +21,9 @@ for(var xx=0; xx < w; xx++){
             loc[0] = xx;
             loc[1] = yy;
             ds_list_add(global.waterTiles, loc);
+            loc = -1;
         }
     }
 }
 
 ds_list_shuffle(global.waterTiles);
-//show_debug_message("Water Tiles: " + string(ds_list_write(global.waterTiles)))

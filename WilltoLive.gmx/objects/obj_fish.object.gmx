@@ -40,6 +40,15 @@ image_yscale = image_xscale;
 targetAlpha = image_alpha;
 targetSize = image_xscale;
 
+//States
+enum State{
+    idle,
+    attracted,
+    scared,
+    collide
+}
+state = State.idle
+
 //Going under
 alarm[0]=30+irandom(20)
 
@@ -196,6 +205,35 @@ if image_alpha = 0 {
             <kind>1</kind>
             <string>///Fish AI
 
+//Island avoid
+if scr_tile_distance(x,y,"sand",128) &lt;= 64 || scr_tile_distance(x,y,"grass",128) &lt;= 64{
+    if scr_tile_meeting(x,y,"sand") || scr_tile_meeting(x,y,"grass"){
+        var island = scr_tile_position(x,y);
+    }else{
+        var island = scr_tile_nearest(x,y,"sand",16);
+    }
+    var dirSand = point_direction(island[0],island[1],x,y);
+    var dirIsland = point_direction(room_width/2,room_width/2,x,y);
+    var moddir = lerp(dirSand, dirIsland, 0.1);
+    dir = lerp(dir, moddir, 0.95);
+    spd = 2;
+}else
+
+//Flee Sharks
+if distance_to_object(obj_shark)&lt;=range{
+    var shark = instance_nearest(x,y,obj_shark);
+    spd = 3;
+    var moddir = point_direction(shark.x,shark.y,x,y);
+    dir = lerp(dir, moddir, 0.6);
+}else
+
+//Flee Human
+if distance_to_object(obj_player)&lt;=range &amp;&amp; obj_player.speed != 0 &amp;&amp; obj_player.swim{
+    spd = 3;
+    var moddir = point_direction(obj_player.x,obj_player.y,x,y);
+    dir = lerp(dir, moddir, 0.6);
+}else
+
 //Getting Caught
 if instance_exists(obj_bobber) &amp;&amp; obj_bobber.hooked == false{
     if place_meeting(x,y,obj_bobber){
@@ -209,33 +247,9 @@ if instance_exists(obj_bobber) &amp;&amp; obj_bobber.hooked == false{
     }   
 }
 
-//Flee Sharks
-if distance_to_object(obj_shark)&lt;=range &amp;&amp; !colliding{
-    var shark = instance_nearest(x,y,obj_shark);
-    spd = 3;
-    var moddir = point_direction(shark.x,shark.y,x,y);
-    dir = lerp(dir, moddir, 0.6);
-}
-
-//Flee Human
-if distance_to_object(obj_player)&lt;=range &amp;&amp; obj_player.speed != 0 &amp;&amp; obj_player.swim &amp;&amp; !colliding{
-    spd = 3;
-    var moddir = point_direction(obj_player.x,obj_player.y,x,y);
-    dir = lerp(dir, moddir, 0.6);
-}
-
-///Island avoid
-if scr_tile_distance(x,y,"sand",64) &lt;= 32 || scr_tile_distance(x,y,"grass",64) &lt;= 32{
-    var island = scr_tile_nearest(x,y,"sand",2);
-    var dirSand = point_direction(island[0],island[1],x,y);
-    var dirIsland = point_direction(room_width/2,room_width/2,x,y);
-    var moddir = lerp(dirSand, dirIsland, 0.2);
-    dir = lerp(dir, moddir, 0.95);
-    spd = 2;
-}
-
 update_motion();
 smooth_rotate(15);
+
 </string>
           </argument>
         </arguments>
@@ -271,54 +285,6 @@ if(image_xscale != targetSize){
     image_xscale += (targetSize - image_xscale) * 0.2;
     image_yscale = image_xscale;
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_sand">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>image_alpha = 0
-instance_destroy();
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_grass">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>image_alpha = 0
-instance_destroy();
 </string>
           </argument>
         </arguments>
