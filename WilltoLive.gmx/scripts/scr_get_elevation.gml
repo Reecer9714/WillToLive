@@ -15,7 +15,7 @@ if elev < 0.3{
 }else if elev >= 0.5 && elev < 0.7{
     return 3
 }else if elev >= 0.7 && elev < 0.8{
-    return 4
+    return 3
 }else if elev >= 0.8 {
-    return 5
+    return 3
 }
