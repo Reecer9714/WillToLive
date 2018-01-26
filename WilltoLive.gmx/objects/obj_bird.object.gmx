@@ -35,7 +35,7 @@ scared = 0
 hunger = 0
 alarm[1]=30
 trapped = false
-range = 48 + irandom(48)
+range = 64 + irandom(48)
 spd = choose(0,0.5,1);
 dir = irandom(359)
 
@@ -234,8 +234,18 @@ if(scr_tile_meeting(x,y,"water")){
     targetHeight = 1;
 }
 
+//Bird Flocking
+if(height &gt; 0.5 //&amp;&amp; distance_to_object(obj_bird) &lt; range * 2.5
+    &amp;&amp; distance_to_object(obj_bird) &gt; range * 0.5){
+    var near = instance_nearest(x,y,obj_bird);
+    var moddir = near.dir
+    dir = lerp(dir, moddir, 0.05);
+        moddir = point_direction(x,y,near.x,near.y);
+    dir = lerp(dir, moddir, 0.05);
+}
+
 //Scared
-if distance_to_object(obj_player) &lt;= range &amp;&amp; height &lt; 1{
+if(distance_to_object(obj_player) &lt;= range &amp;&amp; height &lt; 1){
     scared = 10;
     alarm[5] = room_speed
     var moddir = point_direction(obj_player.x,obj_player.y,x,y);
@@ -250,7 +260,7 @@ if (hunger &gt;= 15 &amp;&amp; scared &lt;= 0){
     if(scr_tile_meeting(x,y,"water")){
         land = scr_tile_nearest(x,y,"grass",global.mapWidth*global.tileSize)
         var moddir = point_direction(x,y,land[0],land[1])
-        dir = lerp(dir, moddir, 0.6);
+        dir = lerp(dir, moddir, 0.5);
         spd = 1.5
     }else if (collision_circle(x,y,range*5,obj_berry,false,true)){
         berry = instance_nearest(x,y,obj_berry)
@@ -365,7 +375,7 @@ image_yscale = image_xscale
             <string>draw_self()
 
 if global.debug {
-    draw_circle(x,y,range,true)
+    //draw_circle(x,y,range,true)
 }
 </string>
           </argument>
