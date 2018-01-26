@@ -152,11 +152,13 @@ alarm[1]=30+irandom(20)
             <string>///Appear/Disapear
 
 if image_alpha = 0 { 
-    image_alpha = 1;
+    targetAlpha = 1;
+    targetSize = image_xscale * 1.2;
     spd = 1;
     alarm[0]=70+irandom(30);
 }else{
-    image_alpha = 0;
+    targetAlpha = 0;
+    targetSize = image_xscale * 0.8;
     spd = 1;
     alarm[0]=70+irandom(30);
 }
@@ -225,10 +227,36 @@ if hunger &gt; 15 {
     }
 }
 
-
-
 update_motion();
 smooth_rotate(15);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Visuals for Alarm[0]
+if(image_alpha != targetAlpha){
+    image_alpha += (targetAlpha - image_alpha) * 0.25;
+}
+if(image_xscale != targetSize){
+    image_xscale += (targetSize - image_xscale) * 0.2;
+    image_yscale = image_xscale;
+}
 </string>
           </argument>
         </arguments>
@@ -273,7 +301,8 @@ smooth_rotate(15);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self()
+            <string>///Debug
+draw_self()
 
 if global.debug {
     draw_circle(x,y,range,true)
