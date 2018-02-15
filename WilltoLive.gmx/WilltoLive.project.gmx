@@ -32,6 +32,7 @@
     <sound>sound\s_pop1</sound>
     <sound>sound\s_pop2</sound>
     <sound>sound\s_pop3</sound>
+    <sound>sound\s_crash</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="32">
@@ -103,6 +104,7 @@
       <sprite>sprites\sp_title</sprite>
       <sprite>sprites\spr_option</sprite>
     </sprites>
+    <sprite>sprites\spr_crashed_boat</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bk_menu</background>
@@ -155,6 +157,7 @@
     <script>scripts\smooth_rotate.gml</script>
     <script>scripts\update_motion.gml</script>
     <script>scripts\cameraFollow.gml</script>
+    <script>scripts\bobEffect.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fn_castaway</font>
@@ -230,6 +233,8 @@
       <object>objects\obj_menu</object>
       <object>objects\obj_title</object>
     </objects>
+    <object>objects\obj_crashed_boat</object>
+    <object>objects\obj_boat_top</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\menu</room>

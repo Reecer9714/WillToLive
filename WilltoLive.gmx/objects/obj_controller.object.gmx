@@ -28,10 +28,11 @@
             <string>///Globals
 global.timeScale = 0.01
 global.debug = false
-global.weather = "clear"
+global.weather = "rain"
 global.pause = false;
 global.guideOpen = false;
 global.delta = 0;
+global.t = 0;
 oldDelta = delta_time;
 
 global.islandGenerated = false
@@ -47,6 +48,12 @@ instance_create(0,0,obj_time)
 audio_set_master_gain(0,0.5)
 
 //Weather
+if(!audio_is_playing(s_rain)){
+    audio_play_sound(s_rain,1,true);
+    //audio_sound_gain(s_rain,0,0)
+    audio_sound_gain(s_rain,0.5,15 * room_speed);
+}
+instance_create(0,0,obj_rain_generator)
 alarm[0] = 85 * room_speed
 </string>
           </argument>
@@ -174,7 +181,8 @@ global.tileGoal = 100*100;
 show_debug_message("Generating Island");
 scr_create_terrain(100,100)
 
-instance_create(room_width/2,room_height/2,obj_player)
+//instance_create(room_width/2,room_height/2,obj_player)
+instance_create(room_width/2,room_height/2,obj_crashed_boat)
 //global.elevation = -1 now has to be kept around
 global.islandGenerated = true;
 //Animal Spawn
@@ -185,10 +193,10 @@ targetWidth = 640
 targetHeight = 360
 startWidth = room_width
 startHeight = room_height
-view_wview[0] = startWidth
-view_hview[0] = startHeight
+view_wview[0] = targetWidth//startWidth
+view_hview[0] = targetHeight//startHeight
 rate = 0.01
-zoom = false
+zoom = true
 
 </string>
           </argument>
@@ -340,37 +348,38 @@ alarm[1] = room_speed * 5;
           <argument>
             <kind>1</kind>
             <string>///Weather switching
-ran = irandom(3)
+ran = irandom(3);
 
 if ran == 0 {
     if global.weather == "clear"{
-        global.weather = "rain"
+        global.weather = "rain";
     }else{
-        global.weather = "clear"
+        global.weather = "clear";
     }
 }
 
 if global.weather == "rain" {
     //effect_create_above(ef_rain,view_xview[0],view_yview[0],2,c_navy)
-    if !audio_is_playing(s_rain){
-        audio_play_sound(s_rain,1,true)
+    if(!audio_is_playing(s_rain)){
+        audio_play_sound(s_rain,1,true);
         //audio_sound_gain(s_rain,0,0)
-        audio_sound_gain(s_rain,0.5,15 * room_speed)
+        audio_sound_gain(s_rain,0.5,15 * room_speed);
     } 
-    instance_create(0,0,obj_rain_generator);
+    if(!instance_exists(obj_rain_generator))
+        instance_create(0,0,obj_rain_generator);
 }else{
     //effect_clear()
-    if audio_sound_get_gain(s_rain) == 0 {
-        audio_stop_sound(s_rain)
+    if(audio_sound_get_gain(s_rain) == 0){
+        audio_stop_sound(s_rain);
     }else{
-        audio_sound_gain(s_rain,0,8 * room_speed)
+        audio_sound_gain(s_rain,0,8 * room_speed);
     } 
     with(obj_rain_generator){
         instance_destroy();
     }
 }
 
-alarm[0] = 30 * room_speed
+alarm[0] = 30 * room_speed;
 </string>
           </argument>
         </arguments>
@@ -396,6 +405,8 @@ alarm[0] = 30 * room_speed
             <string>///Debug Modes
 global.delta = oldDelta/delta_time;
 oldDelta = delta_time;
+
+global.t += 0.1
 
 if(instance_exists(obj_player)){
     x = obj_player.x;

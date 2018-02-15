@@ -218,9 +218,9 @@ if forward{
             audio_sound_gain(s_swim,0.5,8 * room_speed)
         }
     }else{
-    speed = 4
-    sprite_index = spr_survivor
-    image_speed = spritewalkspeed
+        speed = 4
+        sprite_index = spr_survivor
+        image_speed = spritewalkspeed
         if audio_is_playing(s_swim){
             audio_stop_sound(s_swim)
         }
@@ -228,16 +228,16 @@ if forward{
 }else
 if back{
     if swim {
-    speed = -1
-    sprite_index = spr_survivor_swim
-    image_speed = -0.5
+        speed = -1
+        sprite_index = spr_survivor_swim
+        image_speed = -0.5
         if !audio_is_playing(s_swim){
             audio_play_sound(s_swim,1,false)
         }
     }else{
-    speed = -4/2
-    sprite_index = spr_survivor
-    image_speed = spritewalkspeed-0.2
+        speed = -2
+        sprite_index = spr_survivor
+        image_speed = spritewalkspeed-0.2
     }
 }else{
     speed = 0
@@ -264,11 +264,11 @@ speed *= global.delta;
 if(global.pause || global.guideOpen)speed=0;
 
 //pointDir = point_direction(x,y,mouse_x,mouse_y)
-image_angle += sin(degtorad(pointDir - image_angle)) * 20
-direction = image_angle
+//image_angle += sin(degtorad(pointDir - image_angle)) * 20
+//direction = image_angle
+dir = pointDir
+smooth_rotate(20)
 
-//xt = x + cos(degtorad(pointDir));
-//yt = y - sin(degtorad(pointDir));
 //audio_listener_orientation(xt,yt,0, 0,0,1)
 audio_listener_position(x, y, 0);
 cameraFollow(view_current, self);
