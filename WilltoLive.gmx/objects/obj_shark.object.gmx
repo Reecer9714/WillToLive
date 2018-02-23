@@ -37,6 +37,7 @@ motion_set(dir,spd)
 
 //Tween
 targetAlpha = image_alpha;
+initSize = image_xscale;
 targetSize = image_xscale;
 
 //Going under
@@ -153,12 +154,12 @@ alarm[1]=30+irandom(20)
 
 if image_alpha = 0 { 
     targetAlpha = 1;
-    targetSize = image_xscale * 1.2;
+    targetSize = initSize;
     spd = 1;
     alarm[0]=70+irandom(30);
 }else{
     targetAlpha = 0;
-    targetSize = image_xscale * 0.8;
+    targetSize = initSize * 0.8;
     spd = 1;
     alarm[0]=70+irandom(30);
 }

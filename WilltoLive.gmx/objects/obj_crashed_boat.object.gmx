@@ -78,7 +78,7 @@ alarm[0] = 1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>///Intro movement
 if(scr_tile_meeting(x,y,"sand")){
     speed = 0
     instance_create(x,y,obj_player)
@@ -115,35 +115,12 @@ if(scr_tile_meeting(x,y,"sand")){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>top.x = x
+            <string>///Update boat_top
+top.x = x
 top.y = y
 top.image_xscale = image_xscale
 top.image_yscale = image_yscale
 top.image_angle = image_angle
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>draw_sprite_ext(sprite_index,0,x,y,
-                image_xscale,image_yscale,image_angle,c_white,1)
 </string>
           </argument>
         </arguments>

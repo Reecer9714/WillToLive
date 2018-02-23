@@ -179,24 +179,25 @@ global.tileCount = 0;
 global.tileGoal = 100*100;
 
 show_debug_message("Generating Island");
-scr_create_terrain(100,100)
+scr_create_terrain(100,100);
 
 //instance_create(room_width/2,room_height/2,obj_player)
-instance_create(room_width/2,room_height/2,obj_crashed_boat)
+instance_create(0,0,obj_fadein);
+instance_create(room_width/2,room_height/2,obj_crashed_boat);
 //global.elevation = -1 now has to be kept around
 global.islandGenerated = true;
 //Animal Spawn
-alarm[1] = 1
+alarm[1] = 1;
 
 //Zoom in
-targetWidth = 640
-targetHeight = 360
-startWidth = room_width
-startHeight = room_height
+targetWidth = 640;
+targetHeight = 360;
+startWidth = room_width;
+startHeight = room_height;
 view_wview[0] = targetWidth//startWidth
 view_hview[0] = targetHeight//startHeight
-rate = 0.01
-zoom = true
+rate = 0.01;
+zoom = true;
 
 </string>
           </argument>
@@ -565,7 +566,8 @@ ds_list_destroy(global.recipesName);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>guiWidth = display_get_gui_width();
+            <string>///Init GUI vars
+guiWidth = display_get_gui_width();
 guiHeight = display_get_gui_height();
 </string>
           </argument>

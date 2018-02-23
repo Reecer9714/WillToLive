@@ -219,6 +219,7 @@
       <object>objects\obj_pause</object>
       <object>objects\obj_controller</object>
       <object>objects\obj_inventory</object>
+      <object>objects\obj_fadein</object>
     </objects>
     <objects name="Animals">
       <object>objects\obj_fish</object>
@@ -248,6 +249,6 @@
   <TutorialState>
     <IsTutorial>0</IsTutorial>
     <TutorialName>C:\Users\Reece\AppData\Local\GameMaker-Studio\tutorials\Surfaces_Part1\</TutorialName>
-    <TutorialPage>7</TutorialPage>
+    <TutorialPage>5</TutorialPage>
   </TutorialState>
 </assets>

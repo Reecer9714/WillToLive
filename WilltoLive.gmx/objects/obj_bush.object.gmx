@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>hp = 50
+spawned = 0
 x += irandom_range(-8,8);
 y += irandom_range(-8,8);
 
@@ -55,14 +56,15 @@ alarm[0] = room_speed * irandom_range(10,300)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>    leaves = choose(2,3,4)
-    wood = choose(1,2)
-    repeat(wood){
-        instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_wood)
-    }
-    repeat(leaves){
-        instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_leaves)
-    }
+            <string>///Drop Items
+leaves = choose(2,3,4)
+wood = choose(1,2)
+repeat(wood){
+    instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_wood)
+}
+repeat(leaves){
+    instance_create(irandom_range(x-20,x+20),irandom_range(y-20,y+20),obj_leaves)
+}
 </string>
           </argument>
         </arguments>
@@ -88,8 +90,15 @@ alarm[0] = room_speed * irandom_range(10,300)
             <string>///Spawn Berry
 if instance_number(obj_berry) &lt; instance_number(obj_bush) {
     instance_create(irandom_range(x-10,x+10),irandom_range(y-10,y+10),obj_berry)
+    spawned++;
 }
-alarm[0] = room_speed * irandom_range(60,90)
+
+if(spawned &gt;= 3){
+    spawned = 0;
+    alarm[0] = room_speed * irandom_range(60,90) * 3;
+}else{
+    alarm[0] = room_speed * irandom_range(60,90);
+}
 </string>
           </argument>
         </arguments>
@@ -112,7 +121,7 @@ alarm[0] = room_speed * irandom_range(60,90)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>///Player Collision Alpha
 if place_meeting(x,y,obj_player){
     image_alpha = 0.5 
 }else{
