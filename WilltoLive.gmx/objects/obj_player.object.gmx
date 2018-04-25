@@ -125,7 +125,7 @@ thirst += 1.5
 hunger = clamp(hunger,0,200)
 thirst = clamp(thirst,0,200)
 
-alarm[0] = room_speed * 2
+alarm[0] = room_speed * 2.5
 </string>
           </argument>
         </arguments>

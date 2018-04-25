@@ -1,11 +1,12 @@
 //Needs to be reworked
-if use && global.inventory[obj_inventory.selected,0]==itemIndex.icup && scr_tile_meeting(x,y,"water"){
+var index = global.inventory[obj_inventory.selected,0]
+if use && index==itemIndex.icup && scr_tile_meeting(x,y,"water"){
     global.inventory[obj_inventory.selected,0]=itemIndex.icupfilled
 }else
 if use && thirst > 10 &&(
-    global.inventory[obj_inventory.selected,0]==itemIndex.icupfilled ||
-    global.inventory[obj_inventory.selected,0]==itemIndex.icupboiled ){
-        if global.inventory[obj_inventory.selected,0]==itemIndex.icupfilled{
+    index==itemIndex.icupfilled ||
+    index==itemIndex.icupboiled ){
+        if index==itemIndex.icupfilled{
             thirst-= 20
             hp-=20
             if irandom(20)==0{
@@ -13,7 +14,7 @@ if use && thirst > 10 &&(
                 alarm[1] = global.dayTime * 3+irandom(3)
             }
         }else 
-        if global.inventory[obj_inventory.selected,0]==itemIndex.icupboiled{
+        if index==itemIndex.icupboiled{
             thirst-= 40
         }
         //What if there is multiple stacked cups?

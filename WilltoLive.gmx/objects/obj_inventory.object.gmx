@@ -40,7 +40,7 @@ selected = 0;
 //Test
 //[itemIndex,howmany]
 
-global.inventory[0,0] = global.itemIndex.isurvivalbook
+global.inventory[0,0] = itemIndex.isurvivalbook
 global.inventory[0,1] = 1
 </string>
           </argument>

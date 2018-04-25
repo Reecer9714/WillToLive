@@ -1,20 +1,24 @@
 //Eating Food from Inventroy
+var foodIndex = global.inventory[obj_inventory.selected,0];
 if use && hunger >= 5 &&(
-    global.inventory[obj_inventory.selected,0]==itemIndex.icoconut ||
-    global.inventory[obj_inventory.selected,0]==itemIndex.irawfish ||
-    global.inventory[obj_inventory.selected,0]==itemIndex.icookedfish ||
-    global.inventory[obj_inventory.selected,0]==itemIndex.irawcrab ||
-    global.inventory[obj_inventory.selected,0]==itemIndex.icookedcrab ||
-    global.inventory[obj_inventory.selected,0]==itemIndex.iberry ){
-        if global.inventory[obj_inventory.selected,0]==itemIndex.icoconut || 
-                global.inventory[obj_inventory.selected,0]==itemIndex.iberry{
-            hunger-= 25
-        }else if global.inventory[obj_inventory.selected,0]==itemIndex.irawfish ||
-                global.inventory[obj_inventory.selected,0]==itemIndex.irawcrab{
+    foodIndex==itemIndex.icoconut ||
+    foodIndex==itemIndex.irawfish ||
+    foodIndex==itemIndex.icookedfish ||
+    foodIndex==itemIndex.irawcrab ||
+    foodIndex==itemIndex.icookedcrab ||
+    foodIndex==itemIndex.iberry ){
+        if(foodIndex==itemIndex.icoconut){
+            hunger-= 25;
+            thirst-= 10;
+        }else if(foodIndex==itemIndex.iberry){
+            hunger-= 5;
+            thirst-= 5;
+        }else if(foodIndex==itemIndex.irawfish ||
+                 foodIndex==itemIndex.irawcrab){
             hunger-= 15
             hp -= 10
-        }else if global.inventory[obj_inventory.selected,0]==itemIndex.icookedfish ||
-                global.inventory[obj_inventory.selected,0]==itemIndex.icookedcrab{
+        }else if(foodIndex==itemIndex.icookedfish ||
+                 foodIndex==itemIndex.icookedcrab){
             hunger-= 35
             hp += 10
             hp = clamp(hp,0,1000)
@@ -24,5 +28,6 @@ if use && hunger >= 5 &&(
             global.inventory[obj_inventory.selected,0]=itemIndex.inone
         }
         hunger = clamp(hunger,0,200)
+        thirst = clamp(thirst,0,200)
 }
 

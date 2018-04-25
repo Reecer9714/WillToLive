@@ -27,12 +27,15 @@
             <kind>1</kind>
             <string>draw_set_font(fn_castaway)
 draw_set_color(make_color_rgb(57,34,17));
-draw_text_ext_transformed(room_width/2 - string_width("YOU HAVE DIED")/2,room_height/3,"YOU HAVE DIED",5,room_width/3, 1, 1, 0);
+draw_set_halign(fa_center);
+draw_text_ext_transformed(room_width/2,room_height/3,"YOU HAVE DIED",5,room_width/2, 1, 1, 0);
 draw_set_font(fn_day)
 //Stats
-draw_text(room_width/2  - string_width("Days Survived"+string(global.day))/2,room_height/3 + string_height("0")*3,"Days Survived"+string(global.day))
+draw_text(room_width/2,room_height/3 + string_height("0"),"Days Survived: "+string(global.day))
 draw_set_color(c_black);
 draw_set_font(fn_defualt)
+
+draw_set_halign(fa_left);
 </string>
           </argument>
         </arguments>
