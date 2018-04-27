@@ -722,8 +722,8 @@ if window_get_fullscreen(){
           <argument>
             <kind>1</kind>
             <string>///Toggle Debug Mode
-//global.debug = !global.debug;
-//show_debug_overlay(global.debug);
+global.debug = !global.debug;
+show_debug_overlay(global.debug);
 </string>
           </argument>
         </arguments>

@@ -148,7 +148,7 @@ alarm[0] = room_speed * 2.5
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Run getInput Script
+            <string>///getInput()
 getInput()
 </string>
           </argument>
@@ -263,9 +263,6 @@ speed *= global.delta;
 
 if(global.pause || global.guideOpen)speed=0;
 
-//pointDir = point_direction(x,y,mouse_x,mouse_y)
-//image_angle += sin(degtorad(pointDir - image_angle)) * 20
-//direction = image_angle
 dir = pointDir
 smooth_rotate(20)
 
@@ -346,7 +343,7 @@ drinkingWater()
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Hunger and Thirst checks
+            <string>///Hunger, Thirst, HP Update
 if(hunger &gt; 180){
     hp--;
 }
@@ -384,7 +381,7 @@ if(hp &lt; 0){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///View Culling
+            <string>///View Culling(Not In)
 //instance_deactivate_region(view_xview[0] - view_wview, view_yview[0] - view_hview, view_wview*3, view_hview*3, false, true);
 //instance_activate_region(view_xview[0] - view_wview, view_yview[0] - view_hview, view_wview*3, view_hview*3, true);
 </string>

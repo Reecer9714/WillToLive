@@ -84,6 +84,14 @@ if(scr_tile_meeting(x,y,"sand")){
     instance_create(x,y,obj_player)
     //Play island crash sound
     audio_play_sound(s_crash,1,false);
+    
+    repeat(4){
+        var disRand = 80 + random_range(-8,8);
+        var angRand = image_angle + random_range(-32,32);
+        var xoff = lengthdir_x(disRand, angRand);
+        var yoff = lengthdir_y(disRand, angRand);
+        instance_create(x + xoff, y + yoff, obj_wood);
+    }
 }else{
     island = point_direction(x,y,room_width/2,room_height/2);
     if(irandom(9)==0) offset = choose(-30,30);
@@ -121,6 +129,29 @@ top.y = y
 top.image_xscale = image_xscale
 top.image_yscale = image_yscale
 top.image_angle = image_angle
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_breakable">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>instance_destroy(other)
 </string>
           </argument>
         </arguments>

@@ -25,8 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//x = obj_controller.x
-//y = obj_controller.y
+            <string>//if(global.weather != rain destroy
 
 var edge = 48;//distance outside the view to make extra rain
 instance_create(view_xview-edge+random(view_wview+edge*2),view_yview-edge+random(view_hview+edge*2),obj_rain);
