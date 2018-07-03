@@ -32,6 +32,7 @@ global.weather = "rain"
 global.pause = false;
 global.guideOpen = false;
 global.delta = 0;
+global.intro = false;
 global.t = 0;
 oldDelta = delta_time;
 
@@ -39,6 +40,12 @@ global.islandGenerated = false
 sub = 0
 surf = surface_create(view_wport[0],view_hport[0]);
 surfScale = 1/8;
+
+//Stats
+global.stats = ds_map_create();
+ds_map_add(global.stats,"fish",0)
+ds_map_add(global.stats,"crab",0)
+ds_map_add(global.stats,"coconut",0)
 
 ///Day/Night &amp;&amp; Lights
 global.dayTime = room_speed * 90;
@@ -125,6 +132,7 @@ enum itemIndex{
           <argument>
             <kind>1</kind>
             <string>///Recipes
+//Should probably load from file
 show_debug_message("Populating Recipes");
 global.recipes = ds_list_create();
 global.recipesName = ds_list_create();
@@ -181,9 +189,12 @@ global.tileGoal = 100*100;
 show_debug_message("Generating Island");
 scr_create_terrain(100,100);
 
-//instance_create(room_width/2,room_height/2,obj_player)
-instance_create(0,0,obj_fadein);
-instance_create(room_width/2,room_height/2,obj_crashed_boat);
+if(global.intro == false){
+    instance_create(room_width/2,room_height/2,obj_player)
+}else{
+    instance_create(0,0,obj_fadein);
+    instance_create(room_width/2,room_height/2,obj_crashed_boat);
+}
 //global.elevation = -1 now has to be kept around
 global.islandGenerated = true;
 //Animal Spawn
@@ -250,26 +261,6 @@ part_type_gravity(global.flame,0,270)
 part_type_orientation(global.flame,0,0,10,20,1)
 part_type_blend(global.flame,1)
 part_type_life(global.flame,30,40)
-
-//Rain
-/*
-global.ef_raining = part_system_create()
-
-global.rain = part_type_create();
-part_type_shape(global.rain,pt_shape_disk);
-part_type_size(global.rain,0.10,0.10,0,0);
-part_type_scale(global.rain,1.75,1);
-part_type_color1(global.rain,16771494);
-part_type_alpha1(global.rain,0.75);
-part_type_speed(global.rain,1,1,0,0);
-part_type_direction(global.rain,180,359,0,0);
-part_type_gravity(global.rain,0.20,270);
-part_type_orientation(global.rain,0,0,0,0,1);
-part_type_blend(global.rain,0);
-part_type_life(global.rain,90,90);
-
-global.em_rain = part_emitter_create(global.ef_raining);
-*/
 
 </string>
           </argument>
@@ -495,7 +486,8 @@ if !irandom(9){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>audio_stop_all()
+            <string>///Clean Up
+audio_stop_all()
 if(part_system_exists(global.ef_fire)){
 part_system_destroy(global.ef_fire)
 part_emitter_destroy_all(global.ef_fire)
@@ -509,6 +501,7 @@ surface_free(obj_time.surf)
 
 ds_list_destroy(global.recipes);
 ds_list_destroy(global.recipesName);
+//ds_map_destroy(global.stats);
 </string>
           </argument>
         </arguments>

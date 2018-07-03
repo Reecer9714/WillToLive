@@ -10,6 +10,9 @@ if use && hunger >= 5 &&(
         if(foodIndex==itemIndex.icoconut){
             hunger-= 25;
             thirst-= 10;
+            var stats = global.stats;
+            var num = ds_map_find_value(stats,"coconut") + 1;
+            ds_map_replace(stats,"coconut",num);
         }else if(foodIndex==itemIndex.iberry){
             hunger-= 5;
             thirst-= 5;

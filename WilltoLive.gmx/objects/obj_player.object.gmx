@@ -6,7 +6,7 @@
   <depth>-2</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
-  <maskName>&lt;undefined&gt;</maskName>
+  <maskName>spr_survivor_dive</maskName>
   <events>
     <event eventtype="0" enumb="0">
       <action>
@@ -28,6 +28,7 @@
             <string>///Init
 image_index = 0
 spritewalkspeed = 0.5
+tarSpeed = 0;
 image_speed = spritewalkspeed
 crafting = false
 swim = false
@@ -179,7 +180,7 @@ if scr_tile_meeting(x,y,"water"){
 
 
 if(swim &amp;&amp; dive){
-    speed = 1
+    tarSpeed = 1
     sprite_index = spr_survivor_dive
     image_speed = 0.5
     ran = irandom(100)
@@ -190,7 +191,6 @@ if(swim &amp;&amp; dive){
     //Running Out of Breath Effect
     if breath &lt;= 100{
         part_particles_create(global.ef_breath,x,y,global.bubble,1)
-        //effect_create_above(ef_flare, x+irandom_range(-10,10), y+irandom_range(-10,10), 0.5, make_colour_rgb(186,241,255));
     }else{
         effect_clear()
     }
@@ -204,7 +204,7 @@ if(swim &amp;&amp; dive){
     }
 }else if(swim &amp;&amp; !dive){
     //Regain Breath
-    speed = 2
+    tarSpeed = 2
     sprite_index = spr_survivor_swim
     image_speed = 0.5
 }
@@ -218,7 +218,7 @@ if forward{
             audio_sound_gain(s_swim,0.5,8 * room_speed)
         }
     }else{
-        speed = 4
+        tarSpeed = 4
         sprite_index = spr_survivor
         image_speed = spritewalkspeed
         if audio_is_playing(s_swim){
@@ -228,19 +228,19 @@ if forward{
 }else
 if back{
     if swim {
-        speed = -1
+        tarSpeed = -1
         sprite_index = spr_survivor_swim
         image_speed = -0.5
         if !audio_is_playing(s_swim){
             audio_play_sound(s_swim,1,false)
         }
     }else{
-        speed = -2
+        tarSpeed = -2
         sprite_index = spr_survivor
         image_speed = spritewalkspeed-0.2
     }
 }else{
-    speed = 0
+    tarSpeed = 0
     image_speed = 0
     image_index = 0
     if audio_is_playing(s_swim){
@@ -259,7 +259,8 @@ if keyboard_check(ord('D')){
     y-=lengthdir_y(speed,direction+90)
 }
 */
-speed *= global.delta;
+
+speed += sign(tarSpeed - speed) * min(abs(tarSpeed - speed) ,0.36) * global.delta;
 
 if(global.pause || global.guideOpen)speed=0;
 
@@ -432,7 +433,14 @@ with(other){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Collide
+            <string>///Collide and slide
+dirToOther = point_direction(x,y,other.x,other.y);
+//move_outside_solid(dirToOther-180,speed)
+disToOther = point_distance(x,y,other.x,other.y);
+xoff = lengthdir_x(1,dirToOther-90)// - lengthdir_x(disToOther, dirToOther);
+yoff = lengthdir_y(1,dirToOther-90)// - lengthdir_y(disToOther, dirToOther);
+//var newDir = dirToOther-90;//arctan2(y,x);
+move_towards_point(x+xoff,y+yoff,2)
 </string>
           </argument>
         </arguments>
@@ -559,15 +567,19 @@ if(hitting){
     hitIndex+= (hitIndex + 1) mod 3
 }
 
-draw_self()
+
 
 if global.debug = true{
     draw_circle(x,y,reach+50,true)
+    //draw_line(x,y,x+xoff*3,y+yoff*3);
+    //draw_line(x,y,x+lengthdir_x(disToOther,dirToOther-100),y+lengthdir_y(disToOther,dirToOther-100))
     draw_text(x,y+16,"Hunger: "+string(hunger))
     draw_text(x,y+32,"Thirst: "+string(thirst))
     draw_text(x,y+48,"Health: "+string(hp))
     draw_text(x,y+60,"Breath: "+string(breath))
 }
+
+draw_self()
 
 
 </string>

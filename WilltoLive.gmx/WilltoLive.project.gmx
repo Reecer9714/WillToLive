@@ -117,7 +117,7 @@
   <scripts name="scripts">
     <script>scripts\tileRotation.gml</script>
     <script>scripts\getInput.gml</script>
-    <script>scripts\move_towards_object.gml</script>
+    <script>scripts\bobEffect.gml</script>
     <scripts name="terrainGeneration">
       <script>scripts\scr_create_terrain.gml</script>
       <script>scripts\scr_fill.gml</script>
@@ -150,14 +150,17 @@
       <script>scripts\getIndex.gml</script>
       <script>scripts\getObject.gml</script>
     </scripts>
-    <script>scripts\map.gml</script>
-    <script>scripts\arrayEqual.gml</script>
-    <script>scripts\createArray.gml</script>
-    <script>scripts\instance_random.gml</script>
-    <script>scripts\smooth_rotate.gml</script>
-    <script>scripts\update_motion.gml</script>
-    <script>scripts\cameraFollow.gml</script>
-    <script>scripts\bobEffect.gml</script>
+    <scripts name="Util">
+      <script>scripts\cameraFollow.gml</script>
+      <script>scripts\map.gml</script>
+      <script>scripts\update_motion.gml</script>
+      <script>scripts\instance_random.gml</script>
+      <script>scripts\createArray.gml</script>
+      <script>scripts\arrayEqual.gml</script>
+      <script>scripts\smooth_rotate.gml</script>
+      <script>scripts\move_towards_object.gml</script>
+    </scripts>
+    <script>scripts\driftToShore.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fn_castaway</font>
@@ -220,6 +223,7 @@
       <object>objects\obj_controller</object>
       <object>objects\obj_inventory</object>
       <object>objects\obj_fadein</object>
+      <object>objects\obj_drifting</object>
     </objects>
     <objects name="Animals">
       <object>objects\obj_fish</object>

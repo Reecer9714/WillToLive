@@ -118,7 +118,7 @@ image_speed = spd
 
 if !scr_tile_meeting(x,y,"sand"){
     colliding = true
-    sand = scr_tile_nearest(x,y,"sand",6)
+    sand = scr_tile_nearest(x,y,"sand",10)
     var moddir = point_direction(x,y,sand[0],sand[1]);
     dir = lerp(dir, moddir, 0.8);
     spd = 0.5;
@@ -206,6 +206,9 @@ smooth_rotate(15);
             <string>///Kill crab
 if(distance_to_object(obj_player) &lt; obj_player.reach){
     instance_create(x,y,obj_raw_crab);
+    var stats = global.stats;
+    var num = ds_map_find_value(stats,"crab") + 1;
+    ds_map_replace(stats,"crab",num);
     instance_destroy();
 }
 </string>
