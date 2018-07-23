@@ -220,7 +220,7 @@ if scr_tile_distance(x,y,"sand",128) &lt;= 64 || scr_tile_distance(x,y,"grass",1
     var moddir = lerp(dirSand, dirIsland, 0.1);
     dir = lerp(dir, moddir, 0.95);
     spd = 2;
-}else
+}else{
 
 //Fish Schooling
 if(distance_to_object(obj_fish) &lt; range * 3 &amp;&amp; distance_to_object(obj_fish) &gt; range * 0.5){
@@ -237,14 +237,16 @@ if distance_to_object(obj_shark)&lt;=range{
     spd = 3;
     var moddir = point_direction(shark.x,shark.y,x,y);
     dir = lerp(dir, moddir, 0.6);
-}else
+}
 
 //Flee Human
 if distance_to_object(obj_player)&lt;=range &amp;&amp; obj_player.speed != 0 &amp;&amp; obj_player.swim{
     spd = 3;
     var moddir = point_direction(obj_player.x,obj_player.y,x,y);
     dir = lerp(dir, moddir, 0.6);
-}else
+}
+
+}
 
 //Getting Caught
 if instance_exists(obj_bobber) &amp;&amp; obj_bobber.hooked == false{

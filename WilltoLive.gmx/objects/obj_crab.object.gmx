@@ -59,7 +59,6 @@ alarm[1]=10+irandom(20)
             <string>///Speed Change
 if !colliding{
     spd = choose(0,0.5,1)
-    //motion_set(dir,spd)
 }
 alarm[1]=10+irandom(30)
 </string>
@@ -87,8 +86,6 @@ alarm[1]=10+irandom(30)
             <string>///Direction Change
 if !colliding {
     dir = irandom(359);
-    //image_angle = dir
-    //motion_set(dir,spd)
 }
 alarm[0]=15+irandom(20)
 </string>
@@ -116,13 +113,19 @@ alarm[0]=15+irandom(20)
             <string>///Crab AI
 image_speed = spd
 
+//Get Back on Sand
 if !scr_tile_meeting(x,y,"sand"){
     colliding = true
-    sand = scr_tile_nearest(x,y,"sand",10)
-    var moddir = point_direction(x,y,sand[0],sand[1]);
-    dir = lerp(dir, moddir, 0.8);
-    spd = 0.5;
-}else{
+    var sand = scr_tile_nearest(x,y,"sand",12);
+    if(sand != undefined){
+        var moddir = point_direction(x,y,sand[0],sand[1]);
+        dir = lerp(dir, moddir, 0.8);
+        spd = 0.5;
+    }else{
+        spd = 0;
+        cameraFollow(view_current, self);
+    }
+}else if(colliding == true){
     colliding = false
 }
 

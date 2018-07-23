@@ -53,7 +53,7 @@ cook = 0
             <string>event_inherited()
 
 if(instance_exists(obj_campfire)){
-if distance_to_object(obj_campfire)&lt;=10  &amp;&amp; instance_nearest(x,y,obj_campfire).fuel &gt; 0{
+if distance_to_object(obj_campfire)&lt;=10  &amp;&amp; instance_nearest(x,y,obj_campfire).burning{
     cook++
 }
 }

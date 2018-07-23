@@ -2,6 +2,7 @@
 <assets>
   <Configs name="configs">
     <Config>Configs\Default</Config>
+    <Config>Configs\Debug</Config>
   </Configs>
   <datafiles number="4" name="datafiles">
     <datafile>
@@ -16,6 +17,9 @@
       <store>0</store>
       <ConfigOptions>
         <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+        <Config name="Debug">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
       </ConfigOptions>

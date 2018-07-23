@@ -27,12 +27,12 @@
             <kind>1</kind>
             <string>///Globals
 global.timeScale = 0.01
-global.debug = false
+global.debug = DEBUG
 global.weather = "rain"
 global.pause = false;
 global.guideOpen = false;
 global.delta = 0;
-global.intro = false;
+global.intro = INTRO;
 global.t = 0;
 oldDelta = delta_time;
 
