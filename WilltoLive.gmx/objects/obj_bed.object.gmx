@@ -51,7 +51,7 @@ hp = 200
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>addItem(obj_bed)
+            <string>addItem(obj_bed_drag)
 </string>
           </argument>
         </arguments>

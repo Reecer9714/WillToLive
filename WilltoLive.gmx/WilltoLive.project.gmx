@@ -178,10 +178,6 @@
       <object>objects\obj_torch</object>
       <object>objects\obj_wood</object>
       <object>objects\obj_leaves</object>
-      <object>objects\obj_raw_fish</object>
-      <object>objects\obj_raw_crab</object>
-      <object>objects\obj_cooked_fish</object>
-      <object>objects\obj_cooked_crab</object>
       <object>objects\obj_rope</object>
       <object>objects\obj_coal</object>
       <object>objects\obj_coconut</object>
@@ -195,6 +191,12 @@
       <object>objects\obj_bed_drag</object>
       <object>objects\obj_campfire_drag</object>
       <object>objects\obj_net_drag</object>
+      <objects name="Food">
+        <object>objects\obj_cooked_fish</object>
+        <object>objects\obj_cooked_crab</object>
+        <object>objects\obj_raw_fish</object>
+        <object>objects\obj_raw_crab</object>
+      </objects>
       <objects name="Static">
         <object>objects\obj_net</object>
         <object>objects\obj_campfire</object>

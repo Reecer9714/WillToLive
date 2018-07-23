@@ -51,7 +51,7 @@ water = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>addItem(obj_raincatcher)
+            <string>addItem(obj_raincatcher_drag)
 </string>
           </argument>
         </arguments>

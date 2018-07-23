@@ -52,7 +52,7 @@ range = 32*3
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>addItem(obj_net)
+            <string>addItem(obj_net_drag)
 </string>
           </argument>
         </arguments>
