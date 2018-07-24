@@ -76,13 +76,9 @@ hp = 200
             <kind>1</kind>
             <string>///wakeup
 //obj_time.wait = false
-obj_time.inc = false
-obj_time.alarm[0] = 0
-obj_time.alarm[1] = 15
-obj_time.dec = true
-global.time = 0.3
-instance_activate_object(obj_player)
-asleep = false
+obj_time.hour = (obj_time.hour + 8) mod 24;
+instance_activate_object(obj_player);
+asleep = false;
 </string>
           </argument>
         </arguments>
@@ -106,7 +102,7 @@ asleep = false
           <argument>
             <kind>1</kind>
             <string>if(instance_exists(obj_player) &amp;&amp; obj_player.use &amp;&amp; position_meeting(mouse_x, mouse_y, obj_bed) &amp;&amp; (distance_to_object(obj_player) &lt; 32 * 4)){
-    if !asleep &amp;&amp; global.time &gt; 0.2{
+    if !asleep &amp;&amp; obj_time.hour &gt; 20{
         show_debug_message("go to sleep")
         asleep = true
         alarm[0] = 60
