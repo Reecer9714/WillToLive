@@ -119,6 +119,7 @@ if(sec &gt;= 60){
         hour++;
         if(hour &gt;= 24){
             hour = 0;
+            global.day++;
         }
     }
 }
