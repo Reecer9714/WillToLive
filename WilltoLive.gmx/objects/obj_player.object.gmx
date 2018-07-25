@@ -434,6 +434,7 @@ with(other){
           <argument>
             <kind>1</kind>
             <string>///Collide and slide
+/*
 dirToOther = point_direction(x,y,other.x,other.y);
 //move_outside_solid(dirToOther-180,speed)
 disToOther = point_distance(x,y,other.x,other.y);
@@ -441,6 +442,7 @@ xoff = lengthdir_x(1,dirToOther-90)// - lengthdir_x(disToOther, dirToOther);
 yoff = lengthdir_y(1,dirToOther-90)// - lengthdir_y(disToOther, dirToOther);
 //var newDir = dirToOther-90;//arctan2(y,x);
 move_towards_point(x+xoff,y+yoff,2)
+*/
 </string>
           </argument>
         </arguments>
