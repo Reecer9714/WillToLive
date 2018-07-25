@@ -25,15 +25,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.time = 0
-inc = false
-dec = false
-
-wait = true
-alarm[0] = global.dayTime
+            <string>alpha = 0.8
 
 surf = -1//surface_create(room_width,room_height);
 surfScale = 1/6;
+
+sec = 0;
+mins = 0;
+hour = 20;
+percent = (hour*60*60 + mins*60 + sec) / 90060;
 </string>
           </argument>
         </arguments>
@@ -57,10 +57,10 @@ surfScale = 1/6;
           <argument>
             <kind>1</kind>
             <string>///decrease darkness
-global.time -= global.timeScale
-dec = true
-inc = false
-wait = false
+alpha -= 0.01
+//dec = true
+//inc = false
+//wait = false
 </string>
           </argument>
         </arguments>
@@ -84,7 +84,7 @@ wait = false
           <argument>
             <kind>1</kind>
             <string>///increase darkness
-global.time += global.timeScale
+alpha += 0.01
 inc = true
 dec = false
 wait = false
@@ -110,33 +110,32 @@ wait = false
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//x = obj_controller.x
-//y = obj_controller.y
-
-if global.islandGenerated = true{    
-
-    if global.time &lt; 0.8 &amp;&amp; inc = true{
-        //going to night
-        alarm[0] = 15
-        inc = false
-    }else if global.time == 0.8 &amp;&amp; wait = false{
-        //night time
-        inc = false
-        dec = false
-        wait = true
-        alarm[1]= global.dayTime/2
+            <string>sec += 5;
+if(sec &gt;= 60){
+    sec = 0;
+    mins++;
+    if(mins &gt;= 60){
+        mins = 0;
+        hour++;
+        if(hour &gt;= 24){
+            hour = 0;
+            global.day++;
+        }
     }
-    if global.time &gt; 0 &amp;&amp; dec = true{
-        //going to day
-        alarm[1] = 15
-        dec = false
-    }else if global.time == 0 &amp;&amp; wait = false{
-        //day time
-        inc = false
-        dec = false
-        wait = true
-        alarm[0] = global.dayTime
-        global.day++
+}
+percent = (hour*60*60 + mins*60 + sec) / 90060;
+
+if global.islandGenerated = true{   
+    if(hour &gt;= 20 || hour &lt;= 5){
+        //night
+        if(alpha &lt; 0.8 &amp;&amp; alarm[0] &lt;= 0){
+            alarm[0] = 15;
+        }
+    }else{
+        //day
+        if(alpha &gt; 0 &amp;&amp; alarm[1] &lt;= 0){
+            alarm[1] = 15;
+        }
     }
 }
 </string>
@@ -171,7 +170,7 @@ if global.islandGenerated = true{
     }
     surface_reset_target();
     draw_surface_part_ext(surf,view_xview[0],view_yview[0],view_wview[0],view_hview[0],
-            view_xview[0],view_yview[0],1,1,c_white,global.time);
+            view_xview[0],view_yview[0],1,1,c_white,alpha);
 }else{
     surf = surface_create(room_width,room_height);
 }

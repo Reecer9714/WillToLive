@@ -1,8 +1,10 @@
 fishingRod();
 
 if(use){
-    var used =false;
-    switch(global.inventory[obj_inventory.selected,0]){
+    var used = false;
+    var item = global.inventory[obj_inventory.selected,0];
+    //event_perform_object(item, ev_other, ev_user0) 
+    switch(item){
         case itemIndex.ibed: 
             if(!scr_tile_meeting(mouse_x,mouse_y,"water")){
                 instance_create(mouse_x,mouse_y,obj_bed);

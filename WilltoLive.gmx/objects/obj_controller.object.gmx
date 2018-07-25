@@ -111,6 +111,10 @@ enum itemIndex{
     ibed_drag,
     iraincatcher_drag
 }
+
+//Map Item index to object index
+//global.Items = ds_map_create();
+
 </string>
           </argument>
         </arguments>
@@ -658,7 +662,7 @@ draw_set_font(fn_defualt)
 //draw_set_colour(c_gray)
 
 if global.debug == true{
-    draw_text(0,15,"Time " + string(global.time))
+    draw_text(0,15,"Time " + string(obj_time.hour)+":"+string(obj_time.mins)+":"+string(obj_time.percent))
     draw_text(0,30,"Days: " + string(global.day))
     draw_text(guiWidth-128,guiHeight-15,"Debug Vision")
 }
