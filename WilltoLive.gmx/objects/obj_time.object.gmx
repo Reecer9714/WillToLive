@@ -32,8 +32,8 @@ surfScale = 1/6;
 
 sec = 0;
 mins = 0;
-hour = 18;
-percent = (hour*60*60 + mins*60 + sec ) / 90060;
+hour = 20;
+percent = (hour*60*60 + mins*60 + sec) / 90060;
 </string>
           </argument>
         </arguments>
@@ -57,7 +57,7 @@ percent = (hour*60*60 + mins*60 + sec ) / 90060;
           <argument>
             <kind>1</kind>
             <string>///decrease darkness
-alpha -= global.timeScale
+alpha -= 0.01
 //dec = true
 //inc = false
 //wait = false
@@ -84,7 +84,7 @@ alpha -= global.timeScale
           <argument>
             <kind>1</kind>
             <string>///increase darkness
-alpha += global.timeScale
+alpha += 0.01
 inc = true
 dec = false
 wait = false
@@ -123,7 +123,7 @@ if(sec &gt;= 60){
         }
     }
 }
-percent = (hour*60*60 + mins*60 + sec ) / 90060;
+percent = (hour*60*60 + mins*60 + sec) / 90060;
 
 if global.islandGenerated = true{   
     if(hour &gt;= 20 || hour &lt;= 5){
