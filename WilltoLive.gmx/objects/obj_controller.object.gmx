@@ -26,9 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>///Globals
-global.timeScale = 0.01
-global.debug = DEBUG
-global.weather = "rain"
+global.timeScale = 0.01;
+global.debug = DEBUG;
+global.weather = "rain";
 global.pause = false;
 global.guideOpen = false;
 global.delta = 0;
@@ -36,32 +36,40 @@ global.intro = INTRO;
 global.t = 0;
 oldDelta = delta_time;
 
-global.islandGenerated = false
-sub = 0
+if(DEBUG){
+    global.weather = "clear";
+}
+
+global.islandGenerated = false;
+sub = 0;
 surf = surface_create(view_wport[0],view_hport[0]);
 surfScale = 1/8;
 
 //Stats
 global.stats = ds_map_create();
-ds_map_add(global.stats,"fish",0)
-ds_map_add(global.stats,"crab",0)
-ds_map_add(global.stats,"coconut",0)
+ds_map_add(global.stats,"fish",0);
+ds_map_add(global.stats,"crab",0);
+ds_map_add(global.stats,"coconut",0);
 
 ///Day/Night &amp;&amp; Lights
 global.dayTime = room_speed * 90;
-global.day = 0
-instance_create(0,0,obj_time)
+global.day = 0;
+instance_create(0,0,obj_time);
 
-audio_set_master_gain(0,0.5)
+audio_set_master_gain(0,0.5);
 
 //Weather
+handleWeatherSwitch();
+/*
 if(!audio_is_playing(s_rain)){
     audio_play_sound(s_rain,1,true);
     //audio_sound_gain(s_rain,0,0)
     audio_sound_gain(s_rain,0.5,15 * room_speed);
 }
-instance_create(0,0,obj_rain_generator)
-alarm[0] = 85 * room_speed
+instance_create(0,0,obj_rain_generator);
+*/
+
+alarm[0] = 85 * room_speed;
 </string>
           </argument>
         </arguments>
@@ -289,6 +297,7 @@ part_type_life(global.flame,30,40)
           <argument>
             <kind>1</kind>
             <string>///Animal Spawn
+//TODO: change animal limits to variables
 //Birds
 if(instance_number(obj_bird)&lt; 6){
     var xLimiter = room_width*0.2;
@@ -354,26 +363,7 @@ if ran == 0 {
     }
 }
 
-if global.weather == "rain" {
-    //effect_create_above(ef_rain,view_xview[0],view_yview[0],2,c_navy)
-    if(!audio_is_playing(s_rain)){
-        audio_play_sound(s_rain,1,true);
-        //audio_sound_gain(s_rain,0,0)
-        audio_sound_gain(s_rain,0.5,15 * room_speed);
-    } 
-    if(!instance_exists(obj_rain_generator))
-        instance_create(0,0,obj_rain_generator);
-}else{
-    //effect_clear()
-    if(audio_sound_get_gain(s_rain) == 0){
-        audio_stop_sound(s_rain);
-    }else{
-        audio_sound_gain(s_rain,0,8 * room_speed);
-    } 
-    with(obj_rain_generator){
-        instance_destroy();
-    }
-}
+handleWeatherSwitch();
 
 alarm[0] = 30 * room_speed;
 </string>
@@ -407,6 +397,25 @@ global.t += 0.1
 if(instance_exists(obj_player)){
     x = obj_player.x;
     y = obj_player.y;
+}
+
+//Debug keys
+if(DEBUG){
+    if(keyboard_check_pressed(ord('V'))){
+        //Toggle Room View
+        view_enabled = !view_enabled;
+    }
+    if(keyboard_check_pressed(ord('Y'))){
+        //Toggle Debug View
+        global.debug = !global.debug;
+        show_debug_overlay(global.debug);
+    }
+    if(keyboard_check_pressed(ord('H'))){
+        //Heal Player
+        obj_player.hp = 1000;
+        hunger = 0;
+        thirst = 0;
+    }
 }
 </string>
           </argument>
@@ -701,31 +710,6 @@ if window_get_fullscreen(){
         </arguments>
       </action>
     </event>
-    <event eventtype="9" enumb="89">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Toggle Debug Mode
-global.debug = !global.debug;
-show_debug_overlay(global.debug);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="9" enumb="27">
       <action>
         <libid>1</libid>
@@ -743,7 +727,7 @@ show_debug_overlay(global.debug);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Pause &amp;&amp; Exit book
+            <string>///Pause &amp;&amp; Exit book
 if(!global.guideOpen &amp;&amp; !global.pause){
     instance_create(x,y,obj_pause);
 }else if(!global.guideOpen &amp;&amp; global.pause){

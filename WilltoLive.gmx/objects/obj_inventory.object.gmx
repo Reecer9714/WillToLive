@@ -172,20 +172,30 @@ if selected &gt; 0 {
     draw_set_alpha(1)
     draw_set_color(c_black)
     
+    var angleOff = 360/maxItems;
+    var curAngle = 90;
     for(i=0; i &lt; maxItems; i++){
+        //var xx = 72 + lengthdir_x(48,curAngle);
+        //var yy = height + lengthdir_y(48,curAngle);
+        //curAngle -= angleOff;
         
-        draw_sprite(spr_invbox_32,0,x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2)
+        var xx = x1 + (i * global.tileSize + (global.tileSize)/2);
+        var yy = y2 - (global.tileSize)/2;
+        
+        //draw_sprite(spr_invbox_32,0,x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2)
         //draw_sprite_stretched(spr_invbox_32,0,x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2,global.tileSize*2,global.tileSize*2)
+        draw_sprite(spr_invbox_32,0,xx,yy);
+        
         if global.inventory[i,0] != -1{
-            draw_sprite(spr_items,global.inventory[i,0],x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2)
+            draw_sprite(spr_items,global.inventory[i,0],xx,yy)
         }
         
         if !global.inventory[i,1] == 0{
-            draw_text(x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2,global.inventory[i,1])
+            draw_text(xx,yy,global.inventory[i,1])
         }
         
         if selected = i {
-            draw_sprite(spr_invbox_32,1,x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2)
+            draw_sprite(spr_invbox_32,1,xx,yy)
         }
     }
 //}

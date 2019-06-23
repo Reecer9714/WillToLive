@@ -61,6 +61,30 @@ alarm[2]=15+irandom(20)
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Reset colliding
+colliding = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="4">
       <action>
         <libid>1</libid>
@@ -209,19 +233,8 @@ if image_alpha = 0 {
             <string>///Fish AI
 
 //Island avoid
-if scr_tile_distance(x,y,"sand",128) &lt;= 64 || scr_tile_distance(x,y,"grass",128) &lt;= 64{
-    if scr_tile_meeting(x,y,"sand") || scr_tile_meeting(x,y,"grass"){
-        var island = scr_tile_position(x,y);
-    }else{
-        var island = scr_tile_nearest(x,y,"sand",16);
-    }
-    var dirSand = point_direction(island[0],island[1],x,y);
-    var dirIsland = point_direction(room_width/2,room_width/2,x,y);
-    var moddir = lerp(dirSand, dirIsland, 0.1);
-    dir = lerp(dir, moddir, 0.95);
-    spd = 2;
-}else{
-
+if(!islandAvoid(64)){
+    
 //Fish Schooling
 if(distance_to_object(obj_fish) &lt; range * 3 &amp;&amp; distance_to_object(obj_fish) &gt; range * 0.5){
     var near = instance_nearest(x,y,obj_fish);
@@ -284,7 +297,7 @@ smooth_rotate(15);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Visuals for Alarm[0]
+            <string>///Visuals for Dive/Surface
 if(image_alpha != targetAlpha){
     image_alpha += (targetAlpha - image_alpha) * 0.25;
 }
@@ -340,7 +353,7 @@ if(image_xscale != targetSize){
 draw_self()
 
 if global.debug {
-    draw_circle(x,y,range,true)
+    draw_circle(x,y,range,true);
 }
 </string>
           </argument>

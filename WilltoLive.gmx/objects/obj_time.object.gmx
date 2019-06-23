@@ -30,9 +30,20 @@
 surf = -1//surface_create(room_width,room_height);
 surfScale = 1/6;
 
+timeScale = 5;
+sunsetHour = 20;
+sunriseHour = 5;
 sec = 0;
 mins = 0;
 hour = 20;
+if(DEBUG){
+    hour = 12;
+    timeScale = 0;
+}
+
+if(hour &gt; sunriseHour &amp;&amp; hour &lt; sunsetHour){
+    alpha = 0;
+}
 percent = (hour*60*60 + mins*60 + sec) / 90060;
 </string>
           </argument>
@@ -58,9 +69,6 @@ percent = (hour*60*60 + mins*60 + sec) / 90060;
             <kind>1</kind>
             <string>///decrease darkness
 alpha -= 0.01
-//dec = true
-//inc = false
-//wait = false
 </string>
           </argument>
         </arguments>
@@ -85,9 +93,6 @@ alpha -= 0.01
             <kind>1</kind>
             <string>///increase darkness
 alpha += 0.01
-inc = true
-dec = false
-wait = false
 </string>
           </argument>
         </arguments>
@@ -110,7 +115,8 @@ wait = false
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>sec += 5;
+            <string>sec += timeScale;
+
 if(sec &gt;= 60){
     sec = 0;
     mins++;
@@ -126,7 +132,7 @@ if(sec &gt;= 60){
 percent = (hour*60*60 + mins*60 + sec) / 90060;
 
 if global.islandGenerated = true{   
-    if(hour &gt;= 20 || hour &lt;= 5){
+    if(hour &gt;= sunsetHour || hour &lt;= sunriseHour){
         //night
         if(alpha &lt; 0.8 &amp;&amp; alarm[0] &lt;= 0){
             alarm[0] = 15;
