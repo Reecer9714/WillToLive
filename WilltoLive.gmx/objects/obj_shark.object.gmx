@@ -30,7 +30,8 @@
 range = 320+irandom(64)
 dir = irandom(359)
 spd = choose(0.5,2,3)
-
+colliding = false;
+ableToHunt = true;
 hunger = 0
 
 motion_set(dir,spd)
@@ -54,6 +55,34 @@ alarm[3]=60+irandom(30)
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Hunting Cooldown
+ableToHunt = !ableToHunt;
+
+if(!ableToHunt){
+    alarm[4] = room_speed * 6;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="3">
       <action>
         <libid>1</libid>
@@ -72,7 +101,8 @@ alarm[3]=60+irandom(30)
           <argument>
             <kind>1</kind>
             <string>///Hunger
-hunger++
+hunger++;
+hunger = min(hunger,45);
 alarm[3]=60
 </string>
           </argument>
@@ -189,18 +219,7 @@ if image_alpha = 0 {
             <string>///Skark Ai
 
 //Island avoid
-if scr_tile_distance(x,y,"sand",256) &lt;= 96 || scr_tile_distance(x,y,"grass",256) &lt;= 96{
-    if scr_tile_meeting(x,y,"sand") || scr_tile_meeting(x,y,"grass"){
-        var island = scr_tile_position(x,y);
-    }else{
-        var island = scr_tile_nearest(x,y,"sand",16);
-    }
-    var dirSand = point_direction(island[0],island[1],x,y);
-    var dirIsland = point_direction(room_width/2,room_width/2,x,y);
-    var moddir = lerp(dirSand, dirIsland, 0.1);
-    dir = lerp(dir, moddir, 0.95);
-    spd = 2;
-}else
+if(!islandAvoid(256)){
 
 //Find Food
 if hunger &gt; 15 {
@@ -212,20 +231,25 @@ if hunger &gt; 15 {
             move_towards_object(food, 4);
             if place_meeting(x,y,food){
                 hunger -= 45;
-                obj_player.hp=0;
+                obj_player.hp -= 25;
             }
         }
     }else{
-        if !collision_line(x,y,food.x,food.y,obj_sand,false,true){
-            if distance_to_object(food)&lt;=range{
-                move_towards_object(food, 4);
-                if place_meeting(x,y,food){
-                    hunger -= 15
-                    with(food) instance_destroy()
+        if(!collision_line(x,y,food.x,food.y,obj_sand,false,true)){
+            if(!food.colliding &amp;&amp; distance_to_object(food) &lt;= range){
+                if(ableToHunt){
+                    move_towards_object(food, 4);
+                    if(alarm[4] == -1) alarm[4] = room_speed * 4;
+                }
+                if(place_meeting(x,y,food)){
+                    hunger -= 15;
+                    instance_destroy(food);
                 }
             }
         }
     }
+}
+
 }
 
 update_motion();
@@ -305,11 +329,10 @@ if(image_xscale != targetSize){
             <string>///Debug
 draw_self()
 
-if global.debug {
-    draw_circle(x,y,range,true)
-    draw_text(x,y,hunger)
+if(global.debug){
+    draw_circle(x,y,range,true);
+    draw_text(x,y+4,hunger);
 }
-
 </string>
           </argument>
         </arguments>

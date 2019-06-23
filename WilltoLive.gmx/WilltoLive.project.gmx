@@ -96,6 +96,7 @@
       <sprite>sprites\spr_hunger</sprite>
       <sprite>sprites\spr_thirst</sprite>
       <sprite>sprites\spr_items</sprite>
+      <sprite>sprites\spr_circle_invbox</sprite>
     </sprites>
     <sprites name="Effects">
       <sprite>sprites\spr_splash</sprite>
@@ -163,6 +164,8 @@
       <script>scripts\arrayEqual.gml</script>
       <script>scripts\smooth_rotate.gml</script>
       <script>scripts\move_towards_object.gml</script>
+      <script>scripts\handleWeatherSwitch.gml</script>
+      <script>scripts\islandAvoid.gml</script>
     </scripts>
     <script>scripts\driftToShore.gml</script>
   </scripts>
@@ -257,7 +260,7 @@
     <rtf>help.rtf</rtf>
   </help>
   <TutorialState>
-    <IsTutorial>0</IsTutorial>
+    <IsTutorial>-1</IsTutorial>
     <TutorialName>C:\Users\Reece\AppData\Local\GameMaker-Studio\tutorials\Surfaces_Part1\</TutorialName>
     <TutorialPage>5</TutorialPage>
   </TutorialState>
