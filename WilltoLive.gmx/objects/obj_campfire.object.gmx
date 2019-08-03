@@ -163,7 +163,8 @@ alarm[0] = 15
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(burning){
+            <string>///Burning
+if(burning){
     if fuel &gt; 0{
         //Visual Fire
         part_emitter_region(global.ef_fire,campfire,x-15,x+15,y+15,y-5,ps_shape_ellipse,1)
@@ -192,8 +193,6 @@ alarm[0] = 15
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="6" enumb="4">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -211,7 +210,7 @@ alarm[0] = 15
           <argument>
             <kind>1</kind>
             <string>///Refuel
-if(!burning){
+if(!burning &amp;&amp; obj_player.interact){
     if(fuel == 0 &amp;&amp; distance_to_object(obj_wood) &lt; range){
         instance_destroy(instance_nearest(x,y,obj_wood));
         fuel += 100;

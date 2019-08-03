@@ -6,16 +6,21 @@ if(argument0 < 0 || argument0 > global.mapWidth-1 || argument1 < 0 || argument1 
 var elev = global.elevation[argument0+argument1*global.mapWidth]
 
 //TODO: Nest this
-if elev < 0.3{
-    return 0
-}else if elev >= 0.3 && elev < 0.4{
-    return 1
-}else if elev >= 0.4 && elev < 0.5{
+
+if elev >= 0.5 {
+    var newElev = map(elev, 0.5, 0.6, 0, 1);
+
+    if(newElev >= 0.66){
+        return 5;
+    }else if(newElev >= 0.33){
+        return 4;
+    }
+    return 3;
+}else if elev >= 0.4{
     return 2
-}else if elev >= 0.5 && elev < 0.7{
-    return 3
-}else if elev >= 0.7 && elev < 0.8{
-    return 3
-}else if elev >= 0.8 {
-    return 3
+}else if elev >= 0.3{
+    return 1
 }
+
+return 0
+

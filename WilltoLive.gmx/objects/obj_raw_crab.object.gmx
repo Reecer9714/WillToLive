@@ -50,7 +50,8 @@ cook = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited()
+            <string>///Cooking
+event_inherited()
 
 if(instance_exists(obj_campfire)){
 if distance_to_object(obj_campfire)&lt;=10  &amp;&amp; instance_nearest(x,y,obj_campfire).burning{
@@ -62,6 +63,31 @@ if cook&gt;=1000{
     instance_create(x,y,obj_cooked_crab)
     instance_destroy()
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Use
+obj_player.hunger -= 15;
+obj_player.hp -= 10;
 </string>
           </argument>
         </arguments>
@@ -84,7 +110,8 @@ if cook&gt;=1000{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self()
+            <string>///Debug
+draw_self()
 
 if global.debug{
     draw_text(x,y,string(cook))

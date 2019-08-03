@@ -25,13 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>globalvar showInv, maxItems;
-showInv = true;
+            <string>showInv = true;
 maxItems = 6;
 
 for(var i = maxItems - 1; i &gt;= 0; i--){
-    global.inventory[i,0] = 0
-    global.inventory[i,1] = 0
+    items[i,0] = 0
+    items[i,1] = 0
 }
 
 
@@ -39,9 +38,10 @@ selected = 0;
 
 //Test
 //[itemIndex,howmany]
-
-global.inventory[0,0] = itemIndex.isurvivalbook
-global.inventory[0,1] = 1
+addItem(obj_net_drag, id);
+addItem(obj_campfire_drag, id);
+addItem(obj_bed_drag, id);
+addItem(obj_raincatcher_drag, id);
 </string>
           </argument>
         </arguments>
@@ -64,19 +64,12 @@ global.inventory[0,1] = 1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//x = obj_controller.x
-//y = obj_controller.y
+            <string>///Toggle inventory visibility
+if(global.pause || global.guideOpen) exit;
 
-/*
-if keyboard_check_pressed(ord('B')){
-    if showInv = true{
-        showInv = false
-    }else if showInv = false{
-        showInv = true
-    }
+if(keyboard_check_pressed(ord('B'))){
+    showInv = !showInv;
 }
-*/
-
 </string>
           </argument>
         </arguments>
@@ -156,193 +149,11 @@ if selected &gt; 0 {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//if showInv {
-    var x1,x2,y1,y2;
-    var width = display_get_gui_width();
-    var height = display_get_gui_height();
-    x1 = (width- maxItems*global.tileSize)/2
-    y1 = height - global.tileSize
-    x2 = (width + maxItems * global.tileSize)/2
-    y2 = height
-    
+            <string>if showInv {   
     display_set_gui_size(640,360);
-    draw_set_color(c_gray)
-    draw_set_alpha(0.7)
-    draw_rectangle(x1,y1,x2,y2,0)
-    draw_set_alpha(1)
-    draw_set_color(c_black)
     
-    var angleOff = 360/maxItems;
-    var curAngle = 90;
-    for(i=0; i &lt; maxItems; i++){
-        //var xx = 72 + lengthdir_x(48,curAngle);
-        //var yy = height + lengthdir_y(48,curAngle);
-        //curAngle -= angleOff;
-        
-        var xx = x1 + (i * global.tileSize + (global.tileSize)/2);
-        var yy = y2 - (global.tileSize)/2;
-        
-        //draw_sprite(spr_invbox_32,0,x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2)
-        //draw_sprite_stretched(spr_invbox_32,0,x1 + (i * global.tileSize + (global.tileSize)/2),y2 - (global.tileSize)/2,global.tileSize*2,global.tileSize*2)
-        draw_sprite(spr_invbox_32,0,xx,yy);
-        
-        if global.inventory[i,0] != -1{
-            draw_sprite(spr_items,global.inventory[i,0],xx,yy)
-        }
-        
-        if !global.inventory[i,1] == 0{
-            draw_text(xx,yy,global.inventory[i,1])
-        }
-        
-        if selected = i {
-            draw_sprite(spr_invbox_32,1,xx,yy)
-        }
-    }
-//}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="54">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-selected = 5
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="53">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-selected = 4
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="52">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-selected = 3
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="51">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-selected = 2
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="50">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-selected = 1
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="49">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-selected = 0
+    drawBarInventory(obj_player.inventory, maxItems);
+}
 </string>
           </argument>
         </arguments>

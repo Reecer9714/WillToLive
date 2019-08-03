@@ -413,8 +413,8 @@ if(DEBUG){
     if(keyboard_check_pressed(ord('H'))){
         //Heal Player
         obj_player.hp = 1000;
-        hunger = 0;
-        thirst = 0;
+        obj_player.hunger = 0;
+        obj_player.thirst = 0;
     }
 }
 </string>

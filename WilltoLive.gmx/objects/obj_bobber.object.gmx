@@ -59,7 +59,7 @@ yy = mouse_y
     move_towards_point(xx,yy,min(7,distance))
 }
 
-if(global.inventory[obj_inventory.selected,0]!=itemIndex.ifishingrod){
+if(getInventorySelected(obj_player.inventory) != itemIndex.ifishingrod){
     instance_destroy();
 }
 </string>

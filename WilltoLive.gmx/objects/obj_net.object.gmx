@@ -84,7 +84,7 @@ range = 32*3
 }
 
 if collision_point(mouse_x,mouse_y,obj_net,false,false){
-    if obj_player.use{
+    if obj_player.interact{
         repeat(caught){
             addItem(obj_raw_fish)
         }

@@ -86,13 +86,13 @@ if(water &gt; 220){
     image_index = 1
 }
 
-if(instance_exists(obj_player) &amp;&amp; obj_player.use){
+if(instance_exists(obj_player) &amp;&amp; obj_player.interact){
 if(distance_to_object(obj_player) &lt; obj_player.reach &amp;&amp; position_meeting(mouse_x, mouse_y, self)){
     //fill cup
-    if(global.inventory[obj_inventory.selected,0]==itemIndex.icup){
-        global.inventory[obj_inventory.selected,0]=itemIndex.icupboiled;
-        water -= 40
-        if(water &lt; 0) water = 0
+    if(getInventorySelected(obj_player.inventory) == itemIndex.icup){
+        obj_player.inventory.items[obj_player.inventory.selected,0] = itemIndex.icupboiled;
+        water -= 40;
+        if(water &lt; 0) water = 0;
     }else{
         //or just drink
         obj_player.thirst -= 40

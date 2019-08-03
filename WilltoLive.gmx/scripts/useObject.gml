@@ -1,9 +1,7 @@
-fishingRod();
-
+var inv = obj_player.inventory;
 if(use){
-    var used = false;
-    var item = global.inventory[obj_inventory.selected,0];
-    //event_perform_object(item, ev_other, ev_user0) 
+    var item = getInventorySelected(inv);
+    used = false;
     switch(item){
         case itemIndex.ibed: 
             if(!scr_tile_meeting(mouse_x,mouse_y,"water")){
@@ -25,11 +23,17 @@ if(use){
                 instance_create(mouse_x,mouse_y,obj_raincatcher);
                 used = true;
             }break;
+        default:
+            if(item != itemIndex.inone){
+                used = true;
+                event_perform_object(getObject(item),ev_other,ev_user0);
+            }
     }
     if(used){
-        global.inventory[obj_inventory.selected,1]--;
-        if global.inventory[obj_inventory.selected,1]==0{
-            global.inventory[obj_inventory.selected,0]=itemIndex.inone
+        inv.items[inv.selected,1]--;
+        if(getInventorySelectedNumber(inv) == 0){
+            inv.items[inv.selected,0] = itemIndex.inone;
         }
+        used = false;
     }
 }

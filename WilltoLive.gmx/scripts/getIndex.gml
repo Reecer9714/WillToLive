@@ -1,5 +1,5 @@
 var item = argument0;
-
+var index;
 switch(item){
     case obj_torch: index = itemIndex.itorch; break;
     case obj_campfire: index = itemIndex.icampfire_drag; break;
@@ -26,6 +26,9 @@ switch(item){
     case obj_campfire_drag: index = itemIndex.icampfire; break;
     case obj_bed_drag: index = itemIndex.ibed; break;
     case obj_raincatcher_drag: index = itemIndex.iraincatcher; break;
+    case obj_survivalguide: index = itemIndex.isurvivalbook; break;
+    default:
+        show_debug_message("No index for item " + string(item));
 }
 
 return index;

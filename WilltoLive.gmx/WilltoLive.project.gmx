@@ -144,8 +144,6 @@
     </scripts>
     <scripts name="PlayerInteract">
       <script>scripts\fishingRod.gml</script>
-      <script>scripts\drinkingWater.gml</script>
-      <script>scripts\eatingFood.gml</script>
       <script>scripts\useObject.gml</script>
     </scripts>
     <scripts name="ObjectCrafting">
@@ -154,6 +152,7 @@
       <script>scripts\createRecipe.gml</script>
       <script>scripts\getIndex.gml</script>
       <script>scripts\getObject.gml</script>
+      <script>scripts\getInventorySelected.gml</script>
     </scripts>
     <scripts name="Util">
       <script>scripts\cameraFollow.gml</script>
@@ -166,6 +165,8 @@
       <script>scripts\move_towards_object.gml</script>
       <script>scripts\handleWeatherSwitch.gml</script>
       <script>scripts\islandAvoid.gml</script>
+      <script>scripts\drawBarInventory.gml</script>
+      <script>scripts\setUnUsed.gml</script>
     </scripts>
     <script>scripts\driftToShore.gml</script>
   </scripts>
@@ -183,8 +184,6 @@
       <object>objects\obj_leaves</object>
       <object>objects\obj_rope</object>
       <object>objects\obj_coal</object>
-      <object>objects\obj_coconut</object>
-      <object>objects\obj_berry</object>
       <object>objects\obj_fishingrod</object>
       <object>objects\obj_book</object>
       <object>objects\obj_cup</object>
@@ -199,6 +198,8 @@
         <object>objects\obj_cooked_crab</object>
         <object>objects\obj_raw_fish</object>
         <object>objects\obj_raw_crab</object>
+        <object>objects\obj_berry</object>
+        <object>objects\obj_coconut</object>
       </objects>
       <objects name="Static">
         <object>objects\obj_net</object>

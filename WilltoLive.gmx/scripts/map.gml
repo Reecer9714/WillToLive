@@ -1,3 +1,4 @@
+///map(value, minFrom, maxFrom, minTo, maxTo)
 var value = argument0;
 var minFrom = argument1;
 var maxFrom = argument2;

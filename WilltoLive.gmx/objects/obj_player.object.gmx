@@ -31,13 +31,18 @@ spritewalkspeed = 0.5
 tarSpeed = 0;
 image_speed = spritewalkspeed
 crafting = false
+used = false;
 swim = false
 reach = 50
-hp = 1000
+maxHP = 1000;
+hp = maxHP;
 hunger = 0
 thirst = 0
 breath = 300
 sick = false
+
+inventory = instance_create(0,0,obj_inventory);
+addItem(obj_survivalguide, inventory);
 
 hitting = false;
 hitIndex = 0;
@@ -45,8 +50,8 @@ hitIndex = 0;
 getInput()
 
 alarm[0] = room_speed * 30
-alarm[1] = room_speed * 30
-instance_create(0,0,obj_inventory)
+alarm[1] = room_speed * 32
+//instance_create(0,0,obj_inventory)
 
 </string>
           </argument>
@@ -302,26 +307,18 @@ if craft{
 }
 
 //Drop
-if drop &amp;&amp; global.inventory[obj_inventory.selected,0]&gt;=0 &amp;&amp; global.inventory[obj_inventory.selected,1]&gt;0 
+if drop &amp;&amp; getInventorySelected(inventory) &gt;= 0 &amp;&amp; getInventorySelectedNumber(inventory) &gt; 0 
 &amp;&amp; place_free(mouse_x,mouse_y) &amp;&amp; !global.pause &amp;&amp; !global.guideOpen{
-    
-    instance_create(mouse_x,mouse_y,getObject(global.inventory[obj_inventory.selected,0]))
-    if global.inventory[obj_inventory.selected,1] &gt;1 {
-        global.inventory[obj_inventory.selected,1]--
+    instance_create(mouse_x,mouse_y,getObject(getInventorySelected(inventory)));
+    if(getInventorySelectedNumber(inventory) &gt; 1){
+        inventory.items[obj_inventory.selected,1]--;
     }else{
-        global.inventory[obj_inventory.selected,1] = 0
-        global.inventory[obj_inventory.selected,0] = 0
+        inventory.items[obj_inventory.selected,1] = 0;
+        inventory.items[obj_inventory.selected,0] = 0;
     }
 }
 
-//Open Survival guide
-if(!global.pause &amp;&amp; !global.guideOpen &amp;&amp; use &amp;&amp; global.inventory[obj_inventory.selected,0]==itemIndex.isurvivalbook){
-    instance_create(x,y,obj_survivalguide);
-}
-
 useObject()
-eatingFood()
-drinkingWater()
 
 
 </string>
@@ -352,12 +349,10 @@ if(hunger &gt; 180){
 if(thirst &gt; 180){
     hp--;
 }
-if(hunger &lt; 0){
-    hunger = 0
-}
-if(thirst &lt; 0){
-    thirst = 0
-}
+
+hp = clamp(hp,-1,maxHP);
+hunger = clamp(hunger,0,200);
+thirst = clamp(thirst,0,200);
 
 if(hp &lt; 0){
     room_goto_next();
