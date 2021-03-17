@@ -211,17 +211,21 @@ if(burning){
             <kind>1</kind>
             <string>///Refuel
 if(!burning &amp;&amp; obj_player.interact){
-    if(fuel == 0 &amp;&amp; distance_to_object(obj_wood) &lt; range){
+    if(fuel &lt; 200 &amp;&amp; distance_to_object(obj_wood) &lt; range){
         instance_destroy(instance_nearest(x,y,obj_wood));
         fuel += 100;
         image_index = 0
-    }else if(fuel &gt; 0 &amp;&amp; distance_to_object(obj_coal) &lt; range){
+    }else if(fuel &gt;= 200 &amp;&amp; distance_to_object(obj_coal) &lt; range){
         instance_destroy(instance_nearest(x,y,obj_coal));
-        burning = true;
         
-        light = instance_create(x,y,obj_light)
-        with(light){
-            lightSize = 6
+        if(!burning){
+            burning = true;
+            light = instance_create(x,y,obj_light)
+            with(light){
+                lightSize = 6
+            }
+        }else{
+            fuel += 200;
         }
     }  
 }
