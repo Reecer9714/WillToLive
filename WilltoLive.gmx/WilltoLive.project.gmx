@@ -209,6 +209,7 @@
         <object>objects\obj_bed</object>
         <object>objects\obj_bobber</object>
         <object>objects\obj_raincatcher</object>
+        <object>objects\obj_blueprint</object>
       </objects>
     </objects>
     <objects name="Terrain">

@@ -44,6 +44,7 @@ sick = false
 inventory = instance_create(0,0,obj_inventory);
 addItem(obj_survivalguide, inventory);
 
+placing = false;
 hitting = false;
 hitIndex = 0;
 

@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-4</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,23 +25,31 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>showInv = true;
-maxItems = 6;
-
-for(var i = maxItems - 1; i &gt;= 0; i--){
-    items[i,0] = 0
-    items[i,1] = 0
-}
-
-
-selected = 0;
-
-//Test
-//[itemIndex,howmany]
-addItem(obj_net_drag, id);
-addItem(obj_campfire_drag, id);
-addItem(obj_bed_drag, id);
-addItem(obj_raincatcher_drag, id);
+            <string>real_object = noone;
+image_speed = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>obj_player.placing = false;
 </string>
           </argument>
         </arguments>
@@ -64,104 +72,46 @@ addItem(obj_raincatcher_drag, id);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Toggle inventory visibility
-if(global.pause || global.guideOpen) exit;
+            <string>x = mouse_x;
+y = mouse_y;
 
-if(keyboard_check_pressed(ord('B'))){
-    showInv = !showInv;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="6" enumb="61">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-if selected &lt; maxItems-1 {
-    selected++
-}else{
-    selected = 0
-}
-if(obj_player.placing)
+if(obj_player.use &amp;&amp; real_object != noone)
 {
-    instance_destroy(obj_blueprint);
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="6" enumb="60">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(global.pause || global.guideOpen) exit;
-if selected &gt; 0 {
-    selected--
-}else{
-    selected = maxItems-1
-}
-if(obj_player.placing)
-{
-    instance_destroy(obj_blueprint);
-}
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="64">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if showInv {   
-    display_set_gui_size(640,360);
+//check if placable
+    instance_create(x,y,real_object);
     
-    drawBarInventory(obj_player.inventory, maxItems);
+    var inv = obj_player.inventory;
+    inv.items[inv.selected,1]--;
+    if(getInventorySelectedNumber(inv) == 0){
+        inv.items[inv.selected,0] = itemIndex.inone;
+    }
+    
+    instance_destroy();
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw Ghost image
+draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_aqua, 0.5);
 </string>
           </argument>
         </arguments>
